@@ -21,6 +21,8 @@ You may be lost but in case you're not, I am a "junior" developper (regarding PH
 
 If you're reading this, then you are ~~definitively lost~~ watching the very beginning of this wonderful project that (I hope) will be very useful for me, but who knows? maybe for you too.
 
+___
+
 ## 🚩 Installation and configuration
 
 ### 🖥️ Hardware requirements
@@ -30,10 +32,10 @@ I don't know the minimum configuration yet, but I personally use a 1GB (RAM) Ras
 | Requirement | Minimum                | Recommanded           |
 | ----------: | :--------------------: | :-------------------: |
 | OS          | Anything that runs PHP | Raspberry Pi OS       |
-| CPU         | N/A                    | Quad core Cortex-A72  |
-| RAM         | N/A                    | 1 GB                  |
+| CPU         | ?                      | Quad core Cortex-A72  |
+| RAM         | ?                      | 1 GB                  |
 | Storage     | < 512 MB               | 64 GB (musics, videos)|
-| Wi-Fi       | N/A                    | 2.4 GHz / Ethernet    |
+| Wi-Fi       | ?                      | 2.4 GHz / Ethernet    |
 
 ### 📦 Installation
 
@@ -59,7 +61,7 @@ These services are enabled by default as they may be useful for the majority of 
 * **Files** - A storage for your medias and documents to share accross devices or for your backups.
 * **GUI\*** - A graphical user interface (for browsers - *\*may change name*).
 * **Resources** - A monitoring center for resources usage and statistics.
-* **Search** - A powerfull search bar to find everything on your server.
+* **Search** - A powerful search bar to find everything on your server.
 * **Network** - A Wi-Fi network (proxy) you can connect to with your devices. Can be used as a DNS server, a network-wide advertising blocker, or your personal VPN.
 * **Snippets** - "Everything can be simplified". Easy shortcuts to automate your daily tasks (may not do the chores).
 
