@@ -1,0 +1,4 @@
+# Id of the interface's theme
+theme: "T2"
+# Id of the plugin to redirect to from home
+home: "search"
