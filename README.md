@@ -1,6 +1,16 @@
 # NAS
 
-A NAS server with additional services.
+A NAS server with additional plugins.
+
+___
+
+Hi, hi! Welcome on this ambitious project!
+
+You may be lost but in case you're not, I am a "junior" developer (regarding PHP: not even born) and I am making here just a (not at all) simple NAS server (not even sure what that means).
+
+If you're reading this, then you are ~~definitively lost~~ watching the very beginning of this wonderful project that (I hope) will be very useful for me, but who knows? maybe for you too.
+
+___
 
 The project idea is to have a **portable server** (and router) where you can store **musics, videos, documents *etc...*** and that you can **bring with you** wherever you go on whatever mean of transport (don't watch videos while driving though), that you can connect to with (quite) all your devices to **stream, share, work, log, or search in your docs without connecting to Internet**.
 
@@ -12,14 +22,14 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.0.0 \
-    Date: 2026-06-22
+>   Version number: 26.1.0 \
+    Date: 2026-06-26
 
-Hi, hi! Welcome on this ambitious project!
+There is now a bar!
 
-You may be lost but in case you're not, I am a "junior" developper (regarding PHP: not even born) and I am making here just a (not at all) simple NAS server (not even sure what that means).
+And that's it.
 
-If you're reading this, then you are ~~definitively lost~~ watching the very beginning of this wonderful project that (I hope) will be very useful for me, but who knows? maybe for you too.
+Seriously it's nothing but the initialization of the interface.
 
 ___
 
@@ -34,57 +44,59 @@ I don't know the minimum configuration yet, but I personally use a 1GB (RAM) Ras
 | OS          | Anything that runs PHP | Raspberry Pi OS       |
 | CPU         | ?                      | Quad core Cortex-A72  |
 | RAM         | ?                      | 1 GB                  |
-| Storage     | < 512 MB               | 64 GB (musics, videos)|
+| Storage     | 4 GB                   | 64 GB (musics, videos)|
 | Wi-Fi       | ?                      | 2.4 GHz / Ethernet    |
 
 ### 📦 Installation
 
 *To be determined.*
 
-## 🔌 Services showcase
+## 🔌 Plugins showcase
 
-Services are plugins that can be enabled (or disabled) depending on your needs and your resources. They add new powerful and tailored tools in addition to the main functionality of serving files.
+Plugins are services that can be enabled (or disabled) depending on your needs and your resources. They add new powerful and tailored tools in addition to the main functionality of serving files.
 
-![Services list preview](dev/design/T2Plugins.png)
+![Plugins list preview](dev/design/T2Plugins.png)
 
-### 🔩 Core services
+> Notes: Plugins are presented here as illustration and are likely to change during development.
 
-These services can not be disabled. At this point, just uninstall the program... The program doesn't do anything without any other service.
+### 🔩 Core plugins
+
+These plugins can not be disabled. At this point, just uninstall the program... The program doesn't do anything without any other plugin.
 
 * **Shell** - The command line interface of the server.
-* **Settings** - The configuration center of the core program and every other services.
+* **Settings** - The configuration center of the core program and every other plugins.
 
-### 🛞 Native services
+### 🛞 Native plugins
 
-These services are enabled by default as they may be useful for the majority of users, but can easily be disabled if needed.
+These plugins are enabled by default as they may be useful for the majority of users, but can easily be disabled if needed.
 
 * **Files** - A storage for your medias and documents to share accross devices or for your backups.
-* **GUI\*** - A graphical user interface (for browsers - *\*may change name*).
+* **Interface** - A graphical user interface (for browsers).
 * **Resources** - A monitoring center for resources usage and statistics.
 * **Search** - A powerful search bar to find everything on your server.
 * **Network** - A Wi-Fi network (proxy) you can connect to with your devices. Can be used as a DNS server, a network-wide advertising blocker, or your personal VPN.
 * **Snippets** - "Everything can be simplified". Easy shortcuts to automate your daily tasks (may not do the chores).
 
-### 🔗 Additional services
+### 🔗 Additional plugins
 
-These services may not be suited for everyone's use but will surely find their fans.
+These plugins may not be suited for everyone's use but will surely find their fans.
 
 * **Profiles** - Separates the files and behaviors depending on who is connected (accounts).
 * **Messages** - A all-in-one inbox for all your messages.
 * **Passwords** - A credential manager.
 * **Projects** - Developer tools to host, deploy, test and backup all projects.
 
-## 📚 Enabling / disabling a service
+## 📚 Enabling / disabling a plugin
 
 *To be determined.*
 
-## 📖 Creating a service
+## 📖 Creating a plugin
 
 *To be determined.*
 
 ## 🤝 Contributing
 
-[Creating a service](#-creating-a-service) is already a huge contribution, but if you are interested in taking an active part in the project, contact me first (see [credits](#-credits)) and I will be happy to give you all necessary access to the project.
+[Creating a plugin](#-creating-a-plugin) is already a huge contribution, but if you are interested in taking an active part in the project, contact me first (see [credits](#-credits)) and I will be happy to give you all necessary access to the project.
 
 If you want to report an issue or make a suggestion, you are more than welcome to use the GitHub Issues section of the project.
 

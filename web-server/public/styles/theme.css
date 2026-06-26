@@ -1,0 +1,33 @@
+/* T2 theme: modern light-gray mono and high contrast */
+
+:root {
+    /* --background-full: radial-gradient(circle, #fafafa 0%, #eff1f2 100%); */
+    --background-full: radial-gradient(circle at 30% 100%, #fafafa 0%, #d7e4e0 100%);
+
+    --contrast: #5e6174;
+    --action: #a5be8f;
+    --widget: #ffffffa3;
+    --icon: #4f567d;
+    
+    --text: #444444;
+    --emphasis: #ffffff;
+    --contrast-fore: #ededed;
+    --legend: #929292;
+
+    --shadow: #b2b2b240;
+}
+
+* {
+    font-family: 'Montserrat';
+}
+
+body {
+    background-image: var(--background-full);
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+svg {
+    fill: var(--icon);
+}
