@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Controller\Core;
+namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class Plugins
+class Core
 {
     #[Route('/api/core/plugins/count')]
-    public function number(): Response
+    public function countPlugins(): Response
     {
-        $number = random_int(0, 100);
+        $number = 2;
 
         return new Response(
             '<html><body>Plugins count: ' . $number . '</body></html>'
