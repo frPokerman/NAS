@@ -22,14 +22,12 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.0 \
-    Date: 2026-06-26
+>   Version number: 26.1.1 \
+    Date: 2026-06-27
 
-There is now a bar!
+The user interface has grown up!
 
-And that's it.
-
-Seriously it's nothing but the initialization of the interface.
+Yet it's still nothing but an empty shell.
 
 ___
 
