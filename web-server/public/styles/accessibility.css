@@ -1,0 +1,30 @@
+:root {
+    --default-size: 20px;
+    --compact-size: 16px;
+    --label-size: 14px;
+}
+
+body,
+input {
+    font-size: var(--default-size);
+}
+
+*:focus-visible {
+    outline: none;
+}
+
+.compact, .compact * {
+    font-size: var(--compact-size);
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+    background-color: var(--tint);
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--legend);
+}
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--active);
+}

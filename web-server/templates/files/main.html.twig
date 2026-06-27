@@ -1,0 +1,55 @@
+{% extends "generic/base.html.twig" %}
+{% use "search/bar.html.twig" %}
+
+{% block page_title %}Files{% endblock %}
+{% block page_content %}
+<div class="horizontal-flex widget window">
+    <div class="vertical-flex fill-height left-panel between compact width-240 top-padding-24">
+        <div class="horizontal-wrap width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Backups</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Cats</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Films</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Gaming</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Maps</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Music</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Notes</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Screenshots</span>
+            {% for i in range(0, random(10, 20)) %}
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Foo</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">BarBaz</span>
+            {% endfor %}
+        </div>
+        <div class="horizontal-wrap fill-width bottom-panel-fade tint padding-24 gap-4 top-padding-8">
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Popular</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recent</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recommended</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">New</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Old</span>
+        </div>
+    </div>
+    <div class="fill block-padding-24 vertical-flex gap-16">
+        <div class="compact">
+        {% block search_bar %}{{ parent() }}{% endblock %}
+        </div>
+        <div class="fill auto-scroll">
+            <table class="fill-width compact border-collapse">
+            {% for i in range(0, random(15, 30)) %}
+                <tr tabindex="0" class="tint-on-hover inline-on-focus">
+                    <td class="padding-12 left-padding-24"><span component="check_box"></span></td>
+                    <td class="padding-12">IMG{{ "now"|date("Ymd") }}{{ i + 1 }}.jpeg</td>
+                    <td class="padding-12">Image</td>
+                    <td class="padding-12">{{ "now"|date("Y/m/d") }}</td>
+                    <td class="padding-12">Never</td>
+                    <td class="padding-12">N/A</td>
+                    <td class="padding-12">No information</td>
+                    <td class="padding-12 right-padding-24">
+                        <span class="label">Foo</span>
+                        <span>+1</span>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

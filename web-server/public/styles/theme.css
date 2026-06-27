@@ -7,7 +7,10 @@
     --contrast: #5e6174;
     --action: #a5be8f;
     --widget: #ffffffa3;
+    --tint: #d8dcdf42;
     --icon: #4f567d;
+    /* --active: #87c8f6; */
+    --active: var(--action);
     
     --text: #444444;
     --emphasis: #ffffff;
@@ -15,10 +18,12 @@
     --legend: #929292;
 
     --shadow: #b2b2b240;
+    --light-border: #c1c7cb;
 }
 
 * {
     font-family: 'Montserrat';
+    color: var(--text);
 }
 
 body {
@@ -28,6 +33,6 @@ body {
     background-repeat: no-repeat;
 }
 
-svg {
+svg, svg * {
     fill: var(--icon);
 }

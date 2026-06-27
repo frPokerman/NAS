@@ -1,0 +1,69 @@
+.label,
+.thumb {
+    background-color: var(--widget);
+    width: fit-content;
+    cursor: pointer;
+}
+.label {
+    font-size: var(--label-size);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.thumb {
+    font-size: var(--compact-size);
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.widget {
+    background-color: var(--widget);
+    box-shadow: 2px 4px 4px 2px var(--shadow);
+}
+.tint {
+    background-color: var(--tint);
+}
+.transparent {
+    background-color: transparent;
+}
+input.transparent {
+    border: none;
+}
+
+.window {
+    --block-margin: 50px;
+    --inline-margin: 50px;
+
+    width: calc(100% - 2 * var(--inline-margin));
+    height: calc(100% - 2 * var(--block-margin));
+
+    margin: var(--block-margin) var(--inline-margin);
+}
+
+.left-panel {
+    border-right: solid 1px var(--light-border);
+}
+.bottom-panel-fade {
+    /* box-shadow: 0 -2px 4px 0px #72727240; */
+    box-shadow: 0 -2px 4px 0px var(--shadow);
+}
+
+[component="check_box"] {
+    display: block;
+    background-color: #ffffff;
+    /* TODO: Make (1lh) retro compatible as we want as much devices as possible to be able to interract with the server. */
+    width: 1lh;
+    aspect-ratio: 1;
+    border: solid 1px var(--text);
+}
+[component="check_box"]::after {
+    content: "";
+    position: absolute;
+    background-color: var(--active);
+    width: 100%;
+    height: 100%;
+    transform: scale(0);
+}
+[component="check_box"]:focus::after,
+:focus [component="check_box"]::after {
+    transform: scale(0.8);
+}

@@ -1,0 +1,101 @@
+* {
+    position: relative;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    height: 100vh;
+}
+
+.horizontal-flex,
+.vertical-flex {
+    display: flex;
+    align-items: center;
+}
+
+.horizontal-wrap,
+.vertical-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.vertical-flex,
+.vertical-wrap {
+    flex-direction: column;
+}
+.horizontal-flex,
+.horizontal-wrap {
+    flex-direction: row;
+}
+
+:is(.horizontal-flex, .vertical-flex).center {
+    justify-content: center;
+}
+:not(:is(.horizontal-flex, .vertical-flex)).center {
+    margin-inline: auto;
+}
+:is(.horizontal-flex, .vertical-flex).between {
+    justify-content: space-between;
+}
+
+.fill-width,
+.fill {
+    width: 100%;
+}
+.fill-height,
+.fill {
+    height: 100%;
+}
+
+.width-240 {
+    width: 240px;
+}
+
+.no-padding {
+    padding: 0px;
+}
+.padding-12 {
+    padding: 12px;
+}
+.left-padding-24,
+.inline-padding-24,
+.padding-24 {
+    padding-left: 24px;
+}
+.right-padding-24,
+.inline-padding-24,
+.padding-24 {
+    padding-right: 24px;
+}
+.top-padding-24,
+.block-padding-24,
+.padding-24 {
+    padding-top: 24px;
+}
+.bottom-padding-24,
+.block-padding-24,
+.padding-24 {
+    padding-bottom: 24px;
+}
+.top-padding-8 {
+    padding-top: 8px;
+}
+.block-padding-small {
+    padding-block: 0.4em;
+}
+
+.gap-4 {
+    gap: 4px;
+}
+.gap-16 {
+    gap: 16px;
+}
+
+.border-collapse {
+    border-collapse: collapse;
+}
+
+.auto-scroll {
+    overflow: auto;
+}

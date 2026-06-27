@@ -1,0 +1,23 @@
+{# templates/generic/base.html.twig #}
+
+<!DOCTYPE html>
+{# TODO : Language and translation #}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block page_title %}{% endblock %} - MyNAS</title>
+    
+    <link href="{{ asset('styles/accessibility.css') }}" rel="stylesheet">
+    <link href="{{ asset('styles/fonts.css') }}" rel="stylesheet">
+    <link href="{{ asset('styles/theme.css') }}" rel="stylesheet">
+    <link href="{{ asset('styles/layout.css') }}" rel="stylesheet">
+    <link href="{{ asset('styles/controls.css') }}" rel="stylesheet">
+    <link href="{{ asset('styles/animations.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    <main class="vertical-flex fill-height center">
+        {% block page_content %}{% endblock %}
+    </main>
+</body>
+</html>

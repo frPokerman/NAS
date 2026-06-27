@@ -1,0 +1,36 @@
+[component="search_bar"] {
+    width: 30em;
+    max-width: 60vw;
+    padding: 0.6em 1em;
+    gap: 0.8em;
+    overflow: hidden;
+}
+
+[component="search_bar"] .placeholder {
+    position: absolute;
+    color: var(--legend);
+    top: 0.4em;
+    left: 0px;
+    pointer-events: none;
+}
+
+[component="search_bar"] input:not(:placeholder-shown) ~ .placeholder {
+    display: none;
+}
+
+[component="search_bar"]::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 0px;
+    left: 0px;
+}
+[component="search_bar"]:focus-within::after {
+    background-color: var(--active);
+}
+
+[component="search_bar"]:focus-within .placeholder {
+    top: -20px;
+    opacity: 0;
+}
