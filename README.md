@@ -22,12 +22,10 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.2 \
+>   Version number: 26.1.3 \
     Date: 2026-07-03
 
-Add custom exceptions in the namepsace `App\Exception` (or directory `web-server/src/Exception/`).
-
-Besides granting additional precision in `try` / `catch` blocks, these exceptions will be later used to manage how errors infos are displayed to the user.
+Add services called file lists to provide to controllers and other services information on the content of a specific directory, *e.g.* for listing configurations files.
 
 ### 📅 Planned releases
 
