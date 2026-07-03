@@ -22,10 +22,92 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.5 \
+>   Version number: 26.1.6 \
     Date: 2026-07-03
 
-Add the file list for plugins and an empty controller for the Files plugin.
+Add the file list for configuration files and a custom recursive key-value map structure.
+
+The server-wide and plugin configurations are located in the root-level `config/` directory (not to confused with `web-server/config/` for the Symfony's configuration). Each configuration file must be a YAML file.
+
+To access a configuration `param` in the file `config/xyz/abc.yaml`, call `ConfigList::get` with `'xyz.abc:param'`.
+
+**Syntax:**
+
+```
+path :  <file>
+        <folder>.<file>
+        <file>:<key>
+        <folder>.<file>:<key>
+```
+
+To modify the setting's value, call `ConfigList::set` with the same config id (`'xyz.abc:param'`) followed by the new value. The setting **must exist** before changing its value: **it is not possible to add a new setting in the configuration file** using the `ConfigList::set` method.
+
+**Usage:**
+
+Because `ConfigList` is a Symfony service, it is initialized by the framework using [autowiring](https://symfony.com/doc/current/service_container/autowiring.html):
+
+```php
+use App\Service\FileList\ConfigList;
+
+class ControllerExample
+{
+    // ...
+
+    public function my_function(int $x, ConfigList $config): int
+    {
+        return $x + $config->get('xyz.abc:param');
+    }
+}
+
+// ...
+
+$ctr = new ControllerExample();
+$y = $ctr->my_function(10);
+// assuming 'param' is set to 3 in config/xyz/abc.yaml,
+var_dump($y);   // outputs int(13)
+```
+
+**Plugins integration:**
+
+Plugins' configuration files are located in the subdirectory `config/plugins/` and named like their plugin id or in another subdirectory `config/plugins/<plugin id>/`.
+
+Plugins that inherits from `BasePlugin` (namespace `App\Plugin`) can access their parent `BasePlugin::config` method to get or set a configuration related to that plugin, but to do so, the child plugin **must pass the `ConfigList` to its parent** in the constructor:
+
+```php
+<?php
+// web-server/src/Plugin/PluginTest.php
+
+namespace App\Plugin;
+
+use App\Plugin\BasePlugin;
+use App\Service\FileList\ConfigList;
+
+class PluginTest extends BasePlugin
+{
+    // Autowire the config list in the constructor.
+    public function __construct(ConfigList $config)
+    {
+        // Pass the config list alongside the plugin id.
+        parent::__construct('test', $config);
+    }
+
+    public function calculate(float $arg): string
+    {
+        // Fetch the value of a setting called 'factor'
+        //   in config/plugins/test.yaml
+        $value = $this->config('factor');
+        return $arg . ' x ' . $value . ' = ' . ($arg * $value);
+    }
+
+    public function increment(): void
+    {
+        // Increment the value of 'factor' by 1
+        $this->config('factor', $this->config('factor') + 1);
+    }
+}
+```
+
+Here it is assumed that this plugin will be automatically created by Symfony as a service when `use`d and autowired, but if for some reason you want to construct it yourself, you will need to pass a `ConfigList` as parameter to the constructor.
 
 ### 📅 Planned releases
 
@@ -97,7 +179,37 @@ These plugins may not be suited for everyone's use but will surely find their fa
 
 ## 📖 Creating a plugin
 
-*To be determined.*
+As it stands, a plugin can be defined in 3 independent and optional ways:
+
+### 1. The controller
+
+Every PHP file in the directory `web-server/src/Plugin/` will be considered as a plugin by the `PluginList` service (namespace `App\Service\FileList`) and returned by the `PluginList::get_config_list` method and the `/api/plugins/list` endpoint.
+
+At that moment, the endpoint is completely unused and so is the `PluginList::get_config_list` method except by the endpoint.
+
+> **Imminent change:** The plugins returned by this method correspond to the lowercase filename without the extension and might differ from the actual plugin id, *e.g.* the Interface plugin whose controller is named "WebInterface" but its id is "interface".
+
+Plugins can (and should) be used as [Symfony services](https://symfony.com/doc/current/service_container.html) so that you don't need to construct them yourself, instead the framework autowires them whenever you define them in a function's parameters.
+
+Additionally, you can use a [`Route` attribute](https://symfony.com/doc/current/routing.html#creating-routes-as-attributes) on a plugin function to automatically call this function whenever the user tries to reach the specified endpoint.
+
+Plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [latest version summary](#-latest-version) for more details;
+
+> Note that to inherit from `BasePlugin` a plugin **must pass the `ConfigList` service** to the constructor, even if this plugin doesn't access any configuration file.
+
+### 2. The interface
+
+Every folder in the directory `web-server/templates/` that contains a file named `main.html.twig` will be considered as a plugin by the `WebInterface` plugin.
+
+Such template can be accessed at `/<folder name>`.
+
+> Note that it is recommended to name the folder like the plugin id else the template could become unavailable in a future release.
+
+### 3. The configuration
+
+Every YAML file or subfolder in the directory `config/plugins/` will be considered as a plugin by the `ConfigList` service (namespace `App\Service\FileList`). Both a YAML file and a subfolder can exist with the same name simultaneously.
+
+Even if the `BasePlugin::config` shorthand only gives access to the configuration file or subfolder matching the calling plugin id, any plugin or any controller can call the `ConfigList::get` method and access any configuration file or subfolder, so there is no restriction for a plugin to have its configuration at a specific location, as long as it is located within the root-level `config/` directory.
 
 ## 🤝 Contributing
 
