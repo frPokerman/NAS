@@ -31,7 +31,7 @@ class PluginList extends BaseList
         throw new ResourceNotFound('plugin folder', $directory);
     }
 
-    public function get_config_list(): array
+    public function get_plugin_list(): array
     {
         // TODO: filter plugins only without the base (in function match) and map each plugin class to its id (in function transform)
         return parent::get_files();
