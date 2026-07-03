@@ -22,12 +22,10 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.4 \
+>   Version number: 26.1.5 \
     Date: 2026-07-03
 
-Add the Interface plugin's controller to dynamically handle routes for plugins at `/<plugin id>`. Only plugins with a valid folder in the template directory will match the route. A valid folder contains a file named `main.html.twig` such as `web-server/templates/<plugin id>/main.html.twig`.
-
-Note: The controller class for the Interface plugin is called `WebInterface` because `Interface` is a reserved PHP keyword, but its internal plugin id remains `interface`.
+Add the file list for plugins and an empty controller for the Files plugin.
 
 ### 📅 Planned releases
 
