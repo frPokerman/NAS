@@ -22,7 +22,7 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.6 \
+>   Version number: 26.1.7 \
     Date: 2026-07-03
 
 Add the file list for configuration files and a custom recursive key-value map structure.
@@ -116,7 +116,7 @@ Here it is assumed that this plugin will be automatically created by Symfony as 
 | 26.2    | The Settings plugin         |
 | 26.3    | Tests                       |
 | 26.5    | Changelogs                  |
-| 26.10   | Documentation               |
+| 26.10   | Full documentation          |
 
 ___
 

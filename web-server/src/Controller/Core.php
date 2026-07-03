@@ -9,13 +9,13 @@ use Symfony\Component\HttpFoundation\StreamedJsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Plugin\AbstractPlugin;
 use App\Plugin\PluginTest;
-use App\Service\FileList\ConfigList;
+use App\Service\FileList\PluginList;
 
 class Core extends AbstractController
 {
     #[Route('/api/plugins/list', name: 'plugins_list')]
-    public function list_plugins(ConfigList $config): StreamedJsonResponse
+    public function list_plugins(PluginList $list): StreamedJsonResponse
     {
-        return new StreamedJsonResponse($config->filter_plugins());
+        return new StreamedJsonResponse($list->get_plugin_list());
     }
 }
