@@ -22,12 +22,21 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.1 \
-    Date: 2026-06-27
+>   Version number: 26.1.2 \
+    Date: 2026-07-03
 
-The user interface has grown up!
+Add custom exceptions in the namepsace `App\Exception` (or directory `web-server/src/Exception/`).
 
-Yet it's still nothing but an empty shell.
+Besides granting additional precision in `try` / `catch` blocks, these exceptions will be later used to manage how errors infos are displayed to the user.
+
+### 📅 Planned releases
+
+| Release | Features                    |
+| ------- | --------------------------- |
+| 26.2    | The Settings plugin         |
+| 26.3    | Tests                       |
+| 26.5    | Changelogs                  |
+| 26.10   | Documentation               |
 
 ___
 
