@@ -1,16 +1,22 @@
 <?php
 
-namespace App\Controller;
+namespace App\Plugin;
 
+use App\Exception\ResourceNotFound;
+use App\Plugin\BasePlugin;
+use App\Service\FileList\ConfigList;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Exception\PluginNotFoundException;
 use Twig\Error\LoaderError;
 
-class GenericPlugin extends AbstractController
+class WebInterface extends BasePlugin
 {
-    #[Route('/{plugin_id}')]
+    public function __construct(ConfigList $config)
+    {
+        parent::__construct('interface', $config);
+    }
+    
+    #[Route('/{plugin_id}', condition: "service('interface_route_validator').validate(params['plugin_id'])")]
     public function get_main(string $plugin_id): Response
     {
         // TODO : Replace that with an 'if file exists' condition
@@ -25,7 +31,7 @@ class GenericPlugin extends AbstractController
             //   actually checks if the template causing an issue is the very one requested by '$this->render'
             if (str_starts_with(substr($error->getMessage(), 25), $plugin_id . '/main.html.twig'))
             {
-                throw new PluginNotFoundException($plugin_id);   
+                throw new ResourceNotFound('plugin', $plugin_id);   
             }
             else
             {
