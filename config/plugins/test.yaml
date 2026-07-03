@@ -1,0 +1,4 @@
+factor: 19
+complex-object:
+    descriptor: 'I am equivalent to a PHP associative array.'
+    data: { id: '#RF180', type: 2 }
