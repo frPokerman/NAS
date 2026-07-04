@@ -124,7 +124,7 @@ class ConfigList extends BaseList
     {
         $p = explode(self::FILE_SEPARATOR, $config_path);
                                                     // , 2);
-        if (count($p) < 1) return $p;
+        if (count($p) < 1) return array($p, array());
 
         $file = explode(self::SEPARATOR, $p[0]);
         if (!$this->map->contains(...$this->prefix($file)))
@@ -132,7 +132,7 @@ class ConfigList extends BaseList
             $this->read_config_files(...$file);
         }
 
-        if (count($p) == 1) return $file;
+        if (count($p) == 1) return array($file, array());
         
         $config = explode(self::SEPARATOR, $p[1]);
         return array($file, $config);
@@ -141,7 +141,7 @@ class ConfigList extends BaseList
     public function get(string $config_path): mixed
     {
         $path = $this->check_config($config_path);
-
+        
         try
         {
             return $this->map->develop_path(...array_merge($this->prefix($path[0]), $path[1]));
@@ -171,6 +171,6 @@ class ConfigList extends BaseList
     #[AsTwigFunction('plugin_config')]
     public function get_config(string $plugin_name): array
     {
-        $this->get($this->join($plugin_name, 'plugins'));
+        return $this->get($this->join($plugin_name, 'plugins'));
     }
 }
