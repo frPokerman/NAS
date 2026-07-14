@@ -6,117 +6,30 @@ ___
 
 Hi, hi! Welcome on this ambitious project!
 
-You may be lost but in case you're not, I am a "junior" developer (regarding PHP: not even born) and I am making here just a (not at all) simple NAS server (not even sure what that means).
-
-If you're reading this, then you are ~~definitively lost~~ watching the very beginning of this wonderful project that (I hope) will be very useful for me, but who knows? maybe for you too.
-
-___
-
 The project idea is to have a **portable server** (and router) where you can store **musics, videos, documents *etc...*** and that you can **bring with you** wherever you go on whatever mean of transport (don't watch videos while driving though), that you can connect to with (quite) all your devices to **stream, share, work, log, or search in your docs without connecting to Internet**.
 
-The goal? **Avoid steaming again and again** the same musics (or videos) from accross the world and beyond (satellites), **connect all your devices** together without handing your private life to Internet on a silver plate, or view the local map or record your journey in a deep forest, a desert, underwater or in the sky!
+The goal? **Avoid streaming again and again** the same musics (or videos) from across the world and beyond (satellites), **connect all your devices** together without handing your private life to Internet on a silver plate, or view the local map or record your journey in a deep forest, a desert, underwater or in the sky!
 
 The cost? I don't know the minimum configuration yet, but it should be able to run on a 1GB (RAM) Raspberry. That is all you need to take the hand back on your devices.
 
-**Expand your network into an ecosystem.**
+**Expand your network to an ecosystem now!**
 
 ## 🎯 Latest version
 
->   Version number: 26.1.7 \
-    Date: 2026-07-03
+>   Version number: 26.1.8 \
+    Date: 2026-07-14
 
-Add the file list for configuration files and a custom recursive key-value map structure.
-
-The server-wide and plugin configurations are located in the root-level `config/` directory (not to confused with `web-server/config/` for the Symfony's configuration). Each configuration file must be a YAML file.
-
-To access a configuration `param` in the file `config/xyz/abc.yaml`, call `ConfigList::get` with `'xyz.abc:param'`.
-
-**Syntax:**
-
-```
-path :  <file>
-        <folder>.<file>
-        <file>:<key>
-        <folder>.<file>:<key>
-```
-
-To modify the setting's value, call `ConfigList::set` with the same config id (`'xyz.abc:param'`) followed by the new value. The setting **must exist** before changing its value: **it is not possible to add a new setting in the configuration file** using the `ConfigList::set` method.
-
-**Usage:**
-
-Because `ConfigList` is a Symfony service, it is initialized by the framework using [autowiring](https://symfony.com/doc/current/service_container/autowiring.html):
-
-```php
-use App\Service\FileList\ConfigList;
-
-class ControllerExample
-{
-    // ...
-
-    public function my_function(int $x, ConfigList $config): int
-    {
-        return $x + $config->get('xyz.abc:param');
-    }
-}
-
-// ...
-
-$ctr = new ControllerExample();
-$y = $ctr->my_function(10);
-// assuming 'param' is set to 3 in config/xyz/abc.yaml,
-var_dump($y);   // outputs int(13)
-```
-
-**Plugins integration:**
-
-Plugins' configuration files are located in the subdirectory `config/plugins/` and named like their plugin id or in another subdirectory `config/plugins/<plugin id>/`.
-
-Plugins that inherits from `BasePlugin` (namespace `App\Plugin`) can access their parent `BasePlugin::config` method to get or set a configuration related to that plugin, but to do so, the child plugin **must pass the `ConfigList` to its parent** in the constructor:
-
-```php
-<?php
-// web-server/src/Plugin/PluginTest.php
-
-namespace App\Plugin;
-
-use App\Plugin\BasePlugin;
-use App\Service\FileList\ConfigList;
-
-class PluginTest extends BasePlugin
-{
-    // Autowire the config list in the constructor.
-    public function __construct(ConfigList $config)
-    {
-        // Pass the config list alongside the plugin id.
-        parent::__construct('test', $config);
-    }
-
-    public function calculate(float $arg): string
-    {
-        // Fetch the value of a setting called 'factor'
-        //   in config/plugins/test.yaml
-        $value = $this->config('factor');
-        return $arg . ' x ' . $value . ' = ' . ($arg * $value);
-    }
-
-    public function increment(): void
-    {
-        // Increment the value of 'factor' by 1
-        $this->config('factor', $this->config('factor') + 1);
-    }
-}
-```
-
-Here it is assumed that this plugin will be automatically created by Symfony as a service when `use`d and autowired, but if for some reason you want to construct it yourself, you will need to pass a `ConfigList` as parameter to the constructor.
+Patch the `ConfigList::get_config` method used as a Twig function in the Settings interface to return a mapping without the colon `:` indicator in front of config file names.
 
 ### 📅 Planned releases
 
-| Release | Features                    |
+| Number  | Features                    |
 | ------- | --------------------------- |
-| 26.2    | The Settings plugin         |
-| 26.3    | Tests                       |
-| 26.5    | Changelogs                  |
-| 26.10   | Full documentation          |
+| 26.2.0  | The Settings plugin         |
+| 26.3.0  | Tests                       |
+| 26.4.0  | The Files (cloud) plugin    |
+| 26.5.0  | Changelogs                  |
+| 26.10.0 | Full documentation          |
 
 ___
 
@@ -144,7 +57,7 @@ Plugins are services that can be enabled (or disabled) depending on your needs a
 
 ![Plugins list preview](dev/design/T2Plugins.png)
 
-> Notes: Plugins are presented here as illustration and are likely to change during development.
+> Notes: The plugins are presented here for illustrative purposes and are subject to change during development.
 
 ### 🔩 Core plugins
 
@@ -157,12 +70,12 @@ These plugins can not be disabled. At this point, just uninstall the program... 
 
 These plugins are enabled by default as they may be useful for the majority of users, but can easily be disabled if needed.
 
-* **Files** - A storage for your medias and documents to share accross devices or for your backups.
+* **Files** - A storage for your medias and documents to share across devices or for your backups.
 * **Interface** - A graphical user interface (for browsers).
 * **Resources** - A monitoring center for resources usage and statistics.
 * **Search** - A powerful search bar to find everything on your server.
 * **Network** - A Wi-Fi network (proxy) you can connect to with your devices. Can be used as a DNS server, a network-wide advertising blocker, or your personal VPN.
-* **Snippets** - "Everything can be simplified". Easy shortcuts to automate your daily tasks (may not do the chores).
+* **Snippets** - "Everything can be simplified". Easy shortcuts to automate your daily tasks (may not do the housework).
 
 ### 🔗 Additional plugins
 
@@ -185,17 +98,17 @@ As it stands, a plugin can be defined in 3 independent and optional ways:
 
 Every PHP file in the directory `web-server/src/Plugin/` will be considered as a plugin by the `PluginList` service (namespace `App\Service\FileList`) and returned by the `PluginList::get_config_list` method and the `/api/plugins/list` endpoint.
 
-At that moment, the endpoint is completely unused and so is the `PluginList::get_config_list` method except by the endpoint.
+Currently, the endpoint is completely unused and the `PluginList::get_config_list` method is only used by the endpoint.
 
-> **Imminent change:** The plugins returned by this method correspond to the lowercase filename without the extension and might differ from the actual plugin id, *e.g.* the Interface plugin whose controller is named "WebInterface" but its id is "interface".
+> **Imminent change:** The plugins returned by this method correspond to the lowercase filenames without the extension and might differ from the actual plugin ids, *e.g.* the Interface plugin's controller is named "WebInterface" but its id is "interface".
 
 Plugins can (and should) be used as [Symfony services](https://symfony.com/doc/current/service_container.html) so that you don't need to construct them yourself, instead the framework autowires them whenever you define them in a function's parameters.
 
 Additionally, you can use a [`Route` attribute](https://symfony.com/doc/current/routing.html#creating-routes-as-attributes) on a plugin function to automatically call this function whenever the user tries to reach the specified endpoint.
 
-Plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [latest version summary](#-latest-version) for more details;
+The plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [latest version summary](#-latest-version) for more details.
 
-> Note that to inherit from `BasePlugin` a plugin **must pass the `ConfigList` service** to the constructor, even if this plugin doesn't access any configuration file.
+> Note that to inherit from `BasePlugin`, a plugin **must pass the `ConfigList` service** to the constructor, even if this plugin doesn't access any configuration file.
 
 ### 2. The interface
 
@@ -206,6 +119,8 @@ Such template can be accessed at `/<folder name>`.
 > Note that it is recommended to name the folder like the plugin id else the template could become unavailable in a future release.
 
 ### 3. The configuration
+
+*You may want to read the [walkthrough about configuring a plugin](doc/guides/configure-a-plugin.md).*
 
 Every YAML file or subfolder in the directory `config/plugins/` will be considered as a plugin by the `ConfigList` service (namespace `App\Service\FileList`). Both a YAML file and a subfolder can exist with the same name simultaneously.
 
@@ -224,5 +139,3 @@ Finally, if you prefer suggesting your own idea of the project, feel free to for
 I don't like credits.
 
 Although and if you want, you can contact me at santfals@gmail.com.
-
-By the way: I am a certified human being. As long as I will be the only person working on this project, I can guarantee that not a single line of code (and text) has been generated by an artificial intelligence without being read, tested and approved by me, the human.

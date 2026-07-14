@@ -62,12 +62,26 @@ class ConfigList extends BaseList
         return $list;
     }
 
-    protected function prefix(array $arr, string $prefix = self::FILE_SEPARATOR)
+    protected function prefix(array $arr, string $prefix = self::FILE_SEPARATOR): array
     {
         return array_map(function($p) use ($prefix)
         {
             return $prefix.$p;
         }, $arr);
+    }
+
+    protected function unprefix(array $arr, string $prefix = self::FILE_SEPARATOR): array
+    {
+        $new_arr = array();
+        foreach ($arr as $p => $v)
+        {
+            $key = str_starts_with($p, $prefix) ? substr($p, strlen($prefix)) : $p;
+            $child = is_array($v) ? $this->unprefix($v, $prefix) : $v;
+            $new_arr[$key] = $child;
+            
+        }
+
+        return $new_arr;
     }
 
     protected function resolve_file(string ...$file_path): string
@@ -144,7 +158,8 @@ class ConfigList extends BaseList
         
         try
         {
-            return $this->map->develop_path(...array_merge($this->prefix($path[0]), $path[1]));
+            $result = $this->map->develop_path(...array_merge($this->prefix($path[0]), $path[1]));
+            return is_array($result) ? $this->unprefix($result) : $result;
         }
         catch (BaseException $e)
         {
