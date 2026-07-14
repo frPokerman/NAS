@@ -9,7 +9,7 @@
 }
 
 :is(
-    .inline-on-focus,
+    .bookmark-on-focus,
     .outline-on-focus
 )::before {
     content: "";
@@ -22,10 +22,11 @@
     pointer-events: none;
 }
 
-.inline-on-focus:focus-within::before {
-    box-shadow: inset 3px 0px 0px 2px var(--active);
+.bookmark-on-focus:focus-within::before {
+    box-shadow: inset 4px 0px 0px 2px var(--active),
+        inset 0px 0px 0px 2px var(--active);
 }
 
 .outline-on-focus:focus-within::before {
-    box-shadow: 0px 0px 0px 2px var(--active);
+    box-shadow: inset 0px 0px 0px 2px var(--active);
 }

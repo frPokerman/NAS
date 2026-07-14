@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after {
     position: relative;
     box-sizing: border-box;
 }
@@ -8,10 +10,8 @@ body {
     height: 100vh;
 }
 
-.horizontal-flex,
-.vertical-flex {
+[class*=-flex] {
     display: flex;
-    align-items: center;
 }
 
 .horizontal-wrap,
@@ -20,23 +20,37 @@ body {
     flex-wrap: wrap;
 }
 
-.vertical-flex,
+[class*=vertical-flex],
 .vertical-wrap {
     flex-direction: column;
 }
-.horizontal-flex,
+[class*=horizontal-flex],
 .horizontal-wrap {
     flex-direction: row;
 }
 
-:is(.horizontal-flex, .vertical-flex).center {
+[class*=-flex].align-center {
+    align-items: center;
+}
+
+[class*=-flex].center {
     justify-content: center;
 }
-:not(:is(.horizontal-flex, .vertical-flex)).center {
+:not([class*=-flex]).center > * {
     margin-inline: auto;
 }
-:is(.horizontal-flex, .vertical-flex).between {
+[class*=-flex].between {
     justify-content: space-between;
+}
+
+.to-left {
+    text-align: left;
+}
+.to-center {
+    text-align: center;
+}
+.to-right {
+    text-align: right;
 }
 
 .fill-width,
@@ -52,11 +66,34 @@ body {
     width: 240px;
 }
 
+.max-width-600 {
+    max-width: 600px;
+}
+
+.no-margin {
+    margin: 0px;
+}
+.top-margin-4 {
+    margin-top: 4px;
+}
+.bottom-margin-8 {
+    margin-bottom: 8px;
+}
+
 .no-padding {
     padding: 0px;
 }
+.block-padding-8 {
+    padding-block: 8px;
+}
 .padding-12 {
     padding: 12px;
+}
+.left-padding-12 {
+    padding-left: 12px;
+}
+.inline-padding-12 {
+    padding-inline: 12px;
 }
 .left-padding-24,
 .inline-padding-24,
@@ -85,11 +122,18 @@ body {
     padding-block: 0.4em;
 }
 
-.gap-4 {
+.gap-4, [class*=-flex-4] {
     gap: 4px;
 }
-.gap-16 {
+.gap-8, [class*=-flex-8] {
+    gap: 4px;
+}
+.gap-16, [class*=-flex-16] {
     gap: 16px;
+}
+
+.x-offset-20 {
+    left: 20px;
 }
 
 .border-collapse {

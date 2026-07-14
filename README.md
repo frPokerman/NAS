@@ -16,10 +16,10 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.8 \
+>   Version number: 26.1.9 \
     Date: 2026-07-14
 
-Patch the `ConfigList::get_config` method used as a Twig function in the Settings interface to return a mapping without the colon `:` indicator in front of config file names.
+Create the interface of the Settings plugin (design only), and restructurate the other templates.
 
 ### 📅 Planned releases
 

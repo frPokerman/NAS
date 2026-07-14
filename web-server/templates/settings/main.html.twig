@@ -1,0 +1,39 @@
+{% extends "generic/window.html.twig" %}
+{% use "search/bar.html.twig" %}
+
+{% block page_title %}Settings{% endblock %}
+
+{% macro config_group(array) %}
+    {% for key, value in array %}
+        {% if value is mapping %}
+        <div class="vertical-flex-16 line-crossed-section big left-padding-12 bottom-margin-8">
+            <h2 class="section-title x-offset-20 no-margin">{{ key|upper }}</h2>
+            {{ _self.config_group(value) }}
+        </div>
+        {% else %}
+        <fieldset class="no-border compact no-padding">
+            <div class="horizontal-flex between">
+                <h3 class="no-margin big medium">{{ key }}</h3>
+                <span component="switch" class="big"></span>
+            </div>
+            <p class="no-margin top-margin-4">Nostrum dolores sint voluptatem eum. Quae iure nisi voluptates culpa labore architecto, eveniet tempora, qui temporibus quod similique unde.</p>
+        </fieldset>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% set plugin_list = list_plugin_configs() %}
+
+{% block left_panel %}
+<div class="vertical-flex align-center width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
+{% for plugin in plugin_list %}
+    <span class="tab to-center fill-width tint-on-hover outline-on-focus" tabindex="0">{{ plugin|capitalize }}</span>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block window_content %}
+<div class="vertical-flex-16 fill auto-scroll max-width-600 inline-padding-12">
+    {{ _self.config_group(plugin_config(plugin_list[0])) }}
+</div>
+{% endblock %}

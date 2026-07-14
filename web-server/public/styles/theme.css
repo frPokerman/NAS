@@ -7,10 +7,10 @@
     --contrast: #5e6174;
     --action: #a5be8f;
     --widget: #ffffffa3;
-    --tint: #d8dcdf42;
+    --tint: #b7c5cf60;
     --icon: #4f567d;
-    /* --active: #87c8f6; */
-    --active: var(--action);
+    --active: #87c8f6;
+    /* --active: var(--action); */
     
     --text: #444444;
     --emphasis: #ffffff;

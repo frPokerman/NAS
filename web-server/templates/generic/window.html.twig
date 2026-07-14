@@ -1,0 +1,18 @@
+{% extends "generic/base.html.twig" %}
+{% use "search/bar.html.twig" %}
+
+{% block page_content %}
+<div class="horizontal-flex widget window">
+    <div class="vertical-flex fill-height left-panel between width-240 top-padding-24">
+        {% block left_panel %}{% endblock %}
+    </div>
+    <div class="fill block-padding-24 vertical-flex align-center gap-16">
+        <div class="compact">
+        {% block search_bar %}{{ parent() }}{% endblock %}
+        </div>
+        <div class="fill auto-scroll center">
+            {% block window_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

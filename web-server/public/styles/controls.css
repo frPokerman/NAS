@@ -1,7 +1,7 @@
 .label,
-.thumb {
+.thumb,
+.tab {
     background-color: var(--widget);
-    width: fit-content;
     cursor: pointer;
 }
 .label {
@@ -9,9 +9,12 @@
     padding: 2px 4px;
     border-radius: 4px;
 }
-.thumb {
+.thumb,
+.tab {
     font-size: var(--compact-size);
     padding: 8px 12px;
+}
+.thumb {
     border-radius: 8px;
 }
 
@@ -39,18 +42,34 @@ input.transparent {
     margin: var(--block-margin) var(--inline-margin);
 }
 
+.no-border {
+    border: none;
+}
+
 .left-panel {
     border-right: solid 1px var(--light-border);
 }
 .bottom-panel-fade {
-    /* box-shadow: 0 -2px 4px 0px #72727240; */
     box-shadow: 0 -2px 4px 0px var(--shadow);
+}
+
+.line-crossed-section {
+    border-top: solid 1px var(--legend);
+    margin-block-start: calc(1em * 0.7 + 1px);
+}
+.line-crossed-section .section-title {
+    background-color: var(--contrast);
+    width: max-content;
+    color: var(--contrast-fore);
+    margin-block-start: calc(1em * -0.7 - 1px);
+    padding: 0.2em;
+    font-size: 1em;
+    line-height: 1;
 }
 
 [component="check_box"] {
     display: block;
     background-color: #ffffff;
-    /* TODO: Make (1lh) retro compatible as we want as much devices as possible to be able to interract with the server. */
     width: 1lh;
     aspect-ratio: 1;
     border: solid 1px var(--text);
@@ -63,7 +82,29 @@ input.transparent {
     height: 100%;
     transform: scale(0);
 }
-[component="check_box"]:focus::after,
-:focus [component="check_box"]::after {
+[component="check_box"]:active::after {
     transform: scale(0.8);
+}
+
+[component="switch"] {
+    background-color: var(--contrast);
+    height: 1.2em;
+    aspect-ratio: 2;
+    border-radius: 1em;
+    padding: 0.1em;
+}
+[component="switch"]::before {
+    content: "";
+    display: block;
+    position: relative;
+    background-color: var(--legend);
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    left: 0%;
+}
+[component="switch"]:active::before {
+    background-color: var(--contrast-fore);
+    left: 100%;
+    transform: translateX(-100%);
 }

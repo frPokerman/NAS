@@ -13,8 +13,18 @@ input {
     outline: none;
 }
 
+.small {
+    font-size: var(--label-size);
+}
 .compact, .compact * {
     font-size: var(--compact-size);
+}
+.big {
+    font-size: var(--default-size);
+}
+
+.medium {
+    font-weight: 600;
 }
 
 *::-webkit-scrollbar {
