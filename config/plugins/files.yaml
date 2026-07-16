@@ -1,17 +1,14 @@
-# If files can only be downloaded / streamed
-read-only: false
-# If files can only be added, not downloaded / streamed
-write-only: false
-# If each file is stored on the server as one or split among several binary files
-split-chunks: false
+permissions:
+    # If files can only be downloaded / streamed
+    read-only: false
+    # If files can only be added, not downloaded / streamed
+    write-only: false
+
 # If files tagged as hidden can be displayed
 display-hidden-files: true
-# If file access can be logged and used for analytics
-access-analytics: false
 
-compatibility:
-    search:
-        # If a search bar is displayed in the file explorer
-        search-bar: true
-        # If the search bar can search in files' content
-        content-search: true
+confidentiality:
+    # If each file is stored on the server as one or split among several binary files
+    split-chunks: false
+    # If file access can be logged and used for analytics
+    access-analytics: false

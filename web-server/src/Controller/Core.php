@@ -18,4 +18,10 @@ class Core extends AbstractController
     {
         return new StreamedJsonResponse($list->get_plugin_list());
     }
+
+    #[Route('/api/test')]
+    public function api_test(\App\Service\FileList\ConfigList $config): StreamedJsonResponse
+    {
+        return new StreamedJsonResponse($config->get('plugins'));
+    }
 }

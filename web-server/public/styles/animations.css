@@ -8,10 +8,11 @@
     background-color: var(--tint);
 }
 
+.bookmark-on-active::before,
 :is(
     .bookmark-on-focus,
     .outline-on-focus
-)::before {
+)::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -22,11 +23,18 @@
     pointer-events: none;
 }
 
-.bookmark-on-focus:focus-within::before {
+.bookmark-on-focus:focus-within::after {
     box-shadow: inset 4px 0px 0px 2px var(--active),
         inset 0px 0px 0px 2px var(--active);
 }
+.bookmark-on-active.active::before {
+    box-shadow: inset 6px 0px 0px 0px var(--text);
+}
 
-.outline-on-focus:focus-within::before {
+.outline-on-focus:focus-within::after {
     box-shadow: inset 0px 0px 0px 2px var(--active);
+}
+
+.bold-on-active.active {
+    font-weight: 700;
 }

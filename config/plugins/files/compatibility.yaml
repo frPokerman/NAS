@@ -1,0 +1,5 @@
+search:
+    # If a search bar is displayed in the file explorer
+    search-bar: true
+    # If the search bar can search in files' content
+    content-search: true

@@ -5,7 +5,7 @@
 
 {% macro config_group(array) %}
     {% for key, value in array %}
-        {% if value is mapping %}
+        {% if value is mapping and not value is enum %}
         <div class="vertical-flex-16 line-crossed-section big left-padding-12 bottom-margin-8">
             <h2 class="section-title x-offset-20 no-margin">{{ key|upper }}</h2>
             {{ _self.config_group(value) }}
@@ -23,17 +23,22 @@
 {% endmacro %}
 
 {% set plugin_list = list_plugin_configs() %}
+{% set target_plugin = app.request.query.get('p', plugin_list[0]) %}
 
 {% block left_panel %}
 <div class="vertical-flex align-center width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
 {% for plugin in plugin_list %}
-    <span class="tab to-center fill-width tint-on-hover outline-on-focus" tabindex="0">{{ plugin|capitalize }}</span>
+    <a class="tab widget to-center fill-width
+              tint-on-hover outline-on-focus bookmark-on-active bold-on-active
+              {% if plugin == target_plugin %} active{% endif %}" href="?p={{ plugin }}">
+        {{ plugin|capitalize }}
+    </a>
 {% endfor %}
 </div>
 {% endblock %}
 
 {% block window_content %}
 <div class="vertical-flex-16 fill auto-scroll max-width-600 inline-padding-12">
-    {{ _self.config_group(plugin_config(plugin_list[0])) }}
+    {{ _self.config_group(plugin_config(target_plugin)) }}
 </div>
 {% endblock %}

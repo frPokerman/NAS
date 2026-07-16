@@ -113,7 +113,9 @@ class ConfigList extends BaseList
         foreach ($this->list_path_for(...$config_path) as $file_path)
         {
             $map_path = $this->prefix($file_path);
-            foreach (Yaml::parseFile($this->resolve_file(...$file_path)) as $key => $value)
+            foreach (Yaml::parseFile(
+                $this->resolve_file(...$file_path), Yaml::PARSE_CONSTANT
+            ) as $key => $value)
             {
                 $this->map->assign_path($value, ...array_merge($map_path, array($key)));
             }

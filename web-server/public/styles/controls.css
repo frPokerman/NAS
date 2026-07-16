@@ -2,6 +2,7 @@
 .thumb,
 .tab {
     background-color: var(--widget);
+    text-decoration: none;
     cursor: pointer;
 }
 .label {

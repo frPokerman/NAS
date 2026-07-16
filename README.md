@@ -16,18 +16,39 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.9 \
-    Date: 2026-07-14
+>   Version number: 26.1.10 \
+    Date: 2026-07-16
 
-Create the interface of the Settings plugin (design only), and restructurate the other templates.
+Implements a primitive navigation in the settings interface, as well as more configuration examples, including the support for enums in the YAML config files.
+
+Also adds a debug route (@ `/test/config`) to display all configurations of all plugins as one JSON tree.
+
+___
+
+The syntax to parse a enum from YAML is:
+
+```yaml
+<yaml-property>: !php/enum <Namespace\Separated\By\Backslashes\><EnumName>::<EnumConstant>
+```
+
+You may then access constant properties as in PHP:
+
+```yaml
+language-full-name: !php/enum Example\Enum\FullNameOf::PHP->value
+# will be parsed as the value of the enum
+```
+
+In the latter, the value is parsed as a string (or whatever type the enum is), but for configuration purposes, it is recommended to use the whole enum constant (not its `->value`) so that the Settings plugin knows the expected values by listing all constants in the same enum class.
+
+To read more about parsing PHP constants or enums from YAML, see the [Symfony YAML component documentation page](https://symfony.com/doc/current/components/yaml.html#parsing-php-enumerations).
 
 ### 📅 Planned releases
 
 | Number  | Features                    |
 | ------- | --------------------------- |
 | 26.2.0  | The Settings plugin         |
-| 26.3.0  | Tests                       |
-| 26.4.0  | The Files (cloud) plugin    |
+| 26.3.0  | The Files (cloud) plugin    |
+| 26.4.0  | Tests                       |
 | 26.5.0  | Changelogs                  |
 | 26.10.0 | Full documentation          |
 
