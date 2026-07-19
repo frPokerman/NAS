@@ -5,7 +5,9 @@ namespace App\Service\FileList;
 use App\Exception\ResourceNotFound;
 use App\Service\FileList\BaseList;
 use Symfony\Bundle\FrameworkBundle\Routing\Attribute\AsRoutingConditionService;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('app.yaml_available', [ 'key' => 'interface_list' ])]
 #[AsRoutingConditionService(alias: 'interface_route_validator')]
 class InterfaceList extends BaseList
 {
@@ -40,5 +42,16 @@ class InterfaceList extends BaseList
     public function validate(string $plugin_name): bool
     {
         return parent::contains($plugin_name);
+    }
+
+    public function get_list(): array
+    {
+        $list = self::get_files();
+        return array_combine(
+            $list, array_map(function($file)
+            {
+                return ucfirst($file);
+            }, $list)
+        );
     }
 }

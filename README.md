@@ -6,7 +6,7 @@ ___
 
 Hi, hi! Welcome on this ambitious project!
 
-The project idea is to have a **portable server** (and router) where you can store **musics, videos, documents *etc...*** and that you can **bring with you** wherever you go on whatever mean of transport (don't watch videos while driving though), that you can connect to with (quite) all your devices to **stream, share, work, log, or search in your docs without connecting to Internet**.
+The project idea is to have a **portable server** (and router) where you can store **musics, videos, documents *etc...*** and that you can **bring with you** wherever you go on whatever mean of transport (don't watch videos while driving though), that you can connect to from all your devices to **stream, share, work, log, or search in your docs without connecting to Internet**.
 
 The goal? **Avoid streaming again and again** the same musics (or videos) from across the world and beyond (satellites), **connect all your devices** together without handing your private life to Internet on a silver plate, or view the local map or record your journey in a deep forest, a desert, underwater or in the sky!
 
@@ -16,31 +16,16 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.10 \
-    Date: 2026-07-16
+>   Version number: 26.1.11 \
+    Date: 2026-07-19
 
-Implements a primitive navigation in the settings interface, as well as more configuration examples, including the support for enums in the YAML config files.
+Implement the `Configuration` data type to store all meta data associated with configurations such as documentation.
 
-Also adds a debug route (@ `/test/config`) to display all configurations of all plugins as one JSON tree.
+To read more about this documentation syntax, read the [syntax reference for documenting configuration](doc/reference/yaml-syntax-for-plugin-configuration.md#configuration-documentation).
 
-___
+Currently, the Settings interface displays the configurations in their respective HTML inputs. Modifying is yet not implemented.
 
-The syntax to parse a enum from YAML is:
-
-```yaml
-<yaml-property>: !php/enum <Namespace\Separated\By\Backslashes\><EnumName>::<EnumConstant>
-```
-
-You may then access constant properties as in PHP:
-
-```yaml
-language-full-name: !php/enum Example\Enum\FullNameOf::PHP->value
-# will be parsed as the value of the enum
-```
-
-In the latter, the value is parsed as a string (or whatever type the enum is), but for configuration purposes, it is recommended to use the whole enum constant (not its `->value`) so that the Settings plugin knows the expected values by listing all constants in the same enum class.
-
-To read more about parsing PHP constants or enums from YAML, see the [Symfony YAML component documentation page](https://symfony.com/doc/current/components/yaml.html#parsing-php-enumerations).
+Many configuration files were modified to demonstrate the latter changes.
 
 ### 📅 Planned releases
 
@@ -127,7 +112,7 @@ Plugins can (and should) be used as [Symfony services](https://symfony.com/doc/c
 
 Additionally, you can use a [`Route` attribute](https://symfony.com/doc/current/routing.html#creating-routes-as-attributes) on a plugin function to automatically call this function whenever the user tries to reach the specified endpoint.
 
-The plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [latest version summary](#-latest-version) for more details.
+The plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [walkthrough about configuring a plugin](doc/guides/configure-a-plugin.md) for more details.
 
 > Note that to inherit from `BasePlugin`, a plugin **must pass the `ConfigList` service** to the constructor, even if this plugin doesn't access any configuration file.
 
@@ -149,14 +134,12 @@ Even if the `BasePlugin::config` shorthand only gives access to the configuratio
 
 ## 🤝 Contributing
 
-[Creating a plugin](#-creating-a-plugin) is already a huge contribution, but if you are interested in taking an active part in the project, contact me first (see [credits](#-credits)) and I will be happy to give you all necessary access to the project.
+[Creating a plugin](#-creating-a-plugin) is already a huge contribution, but if you are interested in taking an active part in the project, contact me first (see [Contacts](#-contacts)) and I will be happy to give you all necessary access to the project.
 
 If you want to report an issue or make a suggestion, you are more than welcome to use the GitHub Issues section of the project.
 
 Finally, if you prefer suggesting your own idea of the project, feel free to fork the repository and edit my work as you wish.
 
-## 🎓 Credits
+## 📨 Contacts
 
-I don't like credits.
-
-Although and if you want, you can contact me at santfals@gmail.com.
+If you want, you can contact me at santfals@gmail.com.

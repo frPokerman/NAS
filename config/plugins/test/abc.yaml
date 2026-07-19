@@ -1,1 +1,8 @@
+# @type time
 timestamp: "2:30"
+
+# @name PI
+# @desc The 10 first digits of π
+# @docs https://en.wikipedia.org/wiki/Pi
+# Without rounding, the 10th digit is actually 3
+double-value: 3.141592654

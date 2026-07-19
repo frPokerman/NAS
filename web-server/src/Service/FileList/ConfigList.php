@@ -2,13 +2,16 @@
 
 namespace App\Service\FileList;
 
+use App\Data\KVMap;
 use App\Exception\BaseException;
 use App\Exception\ResourceNotFound;
 use App\Service\FileList\BaseList;
-use App\Util\KVMap;
+use App\Service\YAMLParser;
 use Symfony\Bundle\FrameworkBundle\Routing\Attribute\AsRoutingConditionService;
-use Symfony\Component\Yaml\Yaml;
 use Twig\Attribute\AsTwigFunction;
+
+// TODO: Completely replace Symfony's YAML by the YAMLParser service
+use Symfony\Component\Yaml\Yaml;
 
 #[AsRoutingConditionService(alias: 'config_route_validator')]
 class ConfigList extends BaseList
@@ -16,11 +19,12 @@ class ConfigList extends BaseList
     const string SEPARATOR = '.';
     const string FILE_SEPARATOR = ':';
     const string EXTENSION = '.yaml';
-
-    // protected $configs = array();
+    
     protected $map;
 
-    public function __construct()
+    public function __construct(
+        protected YAMLParser $parser
+    )
     {
         parent::__construct('/../../config/');
         $this->map = new KVMap();
@@ -113,9 +117,7 @@ class ConfigList extends BaseList
         foreach ($this->list_path_for(...$config_path) as $file_path)
         {
             $map_path = $this->prefix($file_path);
-            foreach (Yaml::parseFile(
-                $this->resolve_file(...$file_path), Yaml::PARSE_CONSTANT
-            ) as $key => $value)
+            foreach ($this->parser->read($this->resolve_file(...$file_path), true) as $key => $value)
             {
                 $this->map->assign_path($value, ...array_merge($map_path, array($key)));
             }

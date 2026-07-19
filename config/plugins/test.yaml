@@ -1,4 +1,10 @@
+# @name Factor
+# @desc An arbitrary value to test reading and modifying configuration
+# An other comment that should stay
 factor: 19
+
+# @desc An unnamed object
+# @docs https://symfony.com/doc/current/reference/formats/yaml.html#collections
 complex-object:
     descriptor: 'I am equivalent to a PHP associative array.'
     data: { id: '#RF180', type: 2 }

@@ -1,4 +1,6 @@
-# Id of the interface's theme
+# @desc Id of the interface's theme.
+# @list T1, T2
 theme: "T2"
-# Id of the plugin to redirect to from home
+# @desc Id of the plugin to display at the address root.
+# @from interface_list::get_list
 home: "search"

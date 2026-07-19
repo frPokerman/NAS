@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Util;
+namespace App\Data;
 
 use App\Exception\BaseException as Exception;
 use App\Exception\MapRecursionException;

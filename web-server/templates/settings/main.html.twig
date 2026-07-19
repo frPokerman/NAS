@@ -4,20 +4,39 @@
 {% block page_title %}Settings{% endblock %}
 
 {% macro config_group(array) %}
-    {% for key, value in array %}
-        {% if value is mapping and not value is enum %}
-        <div class="vertical-flex-16 line-crossed-section big left-padding-12 bottom-margin-8">
-            <h2 class="section-title x-offset-20 no-margin">{{ key|upper }}</h2>
-            {{ _self.config_group(value) }}
-        </div>
+    {% for key, item in array %}
+        {% if item is config and not item.value is mapping %}
+            <fieldset class="no-border compact no-padding">
+                <div class="horizontal-flex between">
+                    <h3 id="{{ key }}" class="no-margin big medium">{{ item.name }}</h3>
+                    {% if item.possible_values|length > 0 %}
+                        <select name="{{ key }}">
+                            {% for name, option in item.possible_values %}
+                                <option value="{{ name }}"{% if option == item.value %} selected{% endif %}>{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <input  name="{{ key }}"
+                                type="{{ to_input_type(item.type) }}"
+                                {% if item.type == 'boolean' %}{% if item.value %}checked{% endif %}{%
+                                else %}value="{{ item.value }}"{% endif %}
+                        >
+                    {% endif %}
+                </div>
+                {% if item.hasdescription() %}<p class="no-margin top-margin-4">{{ item.description|nl2br }}</p>{% endif %}
+                {% if item.hasdocumentation() %}
+                    <p class="no-margin top-margin-4 italic">
+                        <a href="{{ item.documentation }}" target="_blank">See more</a>.
+                    </p>
+                {% endif %}
+            </fieldset>
         {% else %}
-        <fieldset class="no-border compact no-padding">
-            <div class="horizontal-flex between">
-                <h3 class="no-margin big medium">{{ key }}</h3>
-                <span component="switch" class="big"></span>
+            <div class="vertical-flex-16 line-crossed-section big left-padding-12 bottom-margin-8">
+                <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{
+                    (item?.name ?? key|replace({ '-': ' ' }))|upper
+                }}</h2>
+                {{ _self.config_group(item is config ? item.value : item) }}
             </div>
-            <p class="no-margin top-margin-4">Nostrum dolores sint voluptatem eum. Quae iure nisi voluptates culpa labore architecto, eveniet tempora, qui temporibus quod similique unde.</p>
-        </fieldset>
         {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -26,19 +45,19 @@
 {% set target_plugin = app.request.query.get('p', plugin_list[0]) %}
 
 {% block left_panel %}
-<div class="vertical-flex align-center width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
-{% for plugin in plugin_list %}
-    <a class="tab widget to-center fill-width
-              tint-on-hover outline-on-focus bookmark-on-active bold-on-active
-              {% if plugin == target_plugin %} active{% endif %}" href="?p={{ plugin }}">
-        {{ plugin|capitalize }}
-    </a>
-{% endfor %}
-</div>
+    <div class="vertical-flex align-center width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
+        {% for plugin in plugin_list %}
+            <a class="tab widget to-center fill-width
+                    tint-on-hover outline-on-focus bookmark-on-active bold-on-active
+                    {% if plugin == target_plugin %} active{% endif %}" href="?p={{ plugin }}">
+                {{ plugin|capitalize }}
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block window_content %}
-<div class="vertical-flex-16 fill auto-scroll max-width-600 inline-padding-12">
-    {{ _self.config_group(plugin_config(target_plugin)) }}
-</div>
+    <div class="vertical-flex-16 fill auto-scroll max-width-600 inline-padding-12">
+        {{ _self.config_group(plugin_config(target_plugin)) }}
+    </div>
 {% endblock %}

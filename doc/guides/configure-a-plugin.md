@@ -14,7 +14,7 @@ Currently, two classes can directly access a configuration. The `ConfigList` ser
 
 ### Using the `ConfigList`
 
-The `ConfigList` service provide three public method to access a configuration:
+The `ConfigList` service provides three public method to access a configuration:
 
 - `get` - to read the value of one configuration from any file, or groups of configuration that can be all configurations in a file, all configurations in a YAML mapping, or all configurations of all files in a configuration sub-folder.
 - `set` - to write the value of one configuration.

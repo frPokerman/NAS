@@ -1,1 +1,3 @@
+# @desc What is required to display passwords and other credentials.\
+#       Action mean clicking an icon to reveal the password.
 password-display: !php/enum App\Enum\Config\PasswordDisplay::Master
