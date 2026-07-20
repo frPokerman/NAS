@@ -1,8 +1,29 @@
+.small {
+    font-size: var(--label-size);
+}
+.compact, .compact * {
+    font-size: var(--compact-size);
+}
+.big {
+    font-size: var(--default-size);
+}
+
+.medium {
+    font-weight: 600;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.action-color {
+    color: var(--text-action);
+}
+
 .label,
 .thumb,
 .tab {
     background-color: var(--widget);
-    text-decoration: none;
     cursor: pointer;
 }
 .label {

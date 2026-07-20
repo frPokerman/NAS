@@ -4,6 +4,15 @@
     transition: all 300ms;
 }
 
+.underline-on-hover:hover,
+.underline-on:is(:hover, :focus) {
+    text-decoration: underline;
+}
+
+.bold-on-active.active {
+    font-weight: 700;
+}
+
 .tint-on-hover:hover {
     background-color: var(--tint);
 }
@@ -33,8 +42,4 @@
 
 .outline-on-focus:focus-within::after {
     box-shadow: inset 0px 0px 0px 2px var(--active);
-}
-
-.bold-on-active.active {
-    font-weight: 700;
 }

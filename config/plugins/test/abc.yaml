@@ -1,8 +1,12 @@
+# @desc This value should not overwrite its parent name (abc).
+# @docs https://github.com/frPokerman/NAS/commits Read the 26.1.12 release notes for more details.
+name: "Not the parent's name"
+
 # @type time
 timestamp: "2:30"
 
-# @name PI
-# @desc The 10 first digits of π
+# @name Pi
+# @desc The 10 first digits of π.
 # @docs https://en.wikipedia.org/wiki/Pi
 # Without rounding, the 10th digit is actually 3
 double-value: 3.141592654

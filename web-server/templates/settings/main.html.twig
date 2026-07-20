@@ -3,6 +3,29 @@
 
 {% block page_title %}Settings{% endblock %}
 
+{% macro config_header(config, use_margin = true) %}
+    {% set desc = config.hasdescription() %}
+    {% set docs = config.hasdocumentation() %}
+    {% if desc or docs %}
+        <div class="compact{% if use_margin %} top-margin-8{% endif %}">
+            {% if desc %}
+                <p class="no-margin">{{ config.description|nl2br }}</p>
+            {% endif %}
+            {% if docs %}
+                <p class="no-margin italic">
+                    <a class="action-color underline-on" href="{{ config.documentation }}" target="_blank">
+                        {% if config.hasdoc_text() %}
+                            {{ config.doc_text }}
+                        {% else %}
+                            See more.
+                        {% endif %}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
 {% macro config_group(array) %}
     {% for key, item in array %}
         {% if item is config and not item.value is mapping %}
@@ -23,19 +46,18 @@
                         >
                     {% endif %}
                 </div>
-                {% if item.hasdescription() %}<p class="no-margin top-margin-4">{{ item.description|nl2br }}</p>{% endif %}
-                {% if item.hasdocumentation() %}
-                    <p class="no-margin top-margin-4 italic">
-                        <a href="{{ item.documentation }}" target="_blank">See more</a>.
-                    </p>
-                {% endif %}
+                {{ _self.config_header(item) }}
             </fieldset>
         {% else %}
             <div class="vertical-flex-16 line-crossed-section big left-padding-12 bottom-margin-8">
-                <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{
-                    (item?.name ?? key|replace({ '-': ' ' }))|upper
-                }}</h2>
-                {{ _self.config_group(item is config ? item.value : item) }}
+                {% if item is config %}
+                    <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{ item.name|upper }}</h2>
+                    {{ _self.config_header(item, false) }}
+                    {{ _self.config_group(item.value) }}
+                {% else %}
+                    <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{ key|replace({ '-': ' ' })|upper }}</h2>
+                    {{ _self.config_group(item) }}
+                {% endif %}
             </div>
         {% endif %}
     {% endfor %}

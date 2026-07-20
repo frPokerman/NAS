@@ -28,7 +28,7 @@ All documentations for one property (*a.k.a.* configuration) is precised in an i
 
 ### Documentation token
 
-`@name` - The text displayed to identify a configuration from an other.
+`@name` - The text displayed to distinguish a configuration from another.
 
 - **Syntax** : `@name <a less technical word>`
 - **Default** : The name is set to the key separated in words where the key contains dashes (`-`). The first word is capitalized (the first letter is set uppercase).
@@ -67,8 +67,10 @@ If no backslash is found at the end of the line, the next line is parsed as a do
 
 `@docs` - A reference to a resource documenting this configuration or its possible values.
 
-- **Syntax** : `@docs <URL of the documentation page>`
+- **Syntax** : `@docs <URL of the documentation page>[ <text to display>]`
 - **Default** : No documentation or help is provided.
+
+A custom text can be specified instead of the default "*See more.*", following the URL and separated by a space.
 
 `@list` - A list of possible values for this configuration. At any time this configuration's value must be in this list.
 
@@ -87,7 +89,7 @@ Else if the provided dataset is a mapping, the value of the property value is ex
 
 When parsing a configuration with this documentation, if a service has the tag `app.yaml_available` with the key that matches the `<service id>` parameter, then the method `<public method>` of this service is called, and the result become the list of possible values for this configuration.
 
-It is expected from this method to return a mapping where values are more comprehensive than the keys. Buf if an array is returned, the keys become the indexes.
+It is expected from this method to return a mapping where values are more comprehensive than the keys. But if an array is returned, the keys become the indexes.
 
 In the YAML configuration file or during runtime, the key is used to refer to the corresponding possible value, however the value is displayed on the interface.
 
@@ -107,7 +109,7 @@ language-full-name: !php/enum Example\Enum\FullNameOf::PHP->value
 # will be parsed as the value of the enum
 ```
 
-In the latter, the value is parsed as a string (or whatever type the enum is), but for configuration purposes, it is recommended to use an enum object (not its `->value`) so that the parser can make a list of possible values for the configuration out of the constants in the same enum.
+In the latter, the value is parsed as a string (or whatever type the enum is), but for configuration purposes, it is recommended to use an enum object (not its `->value`) so that the parser can make a list of possible values for the configuration by listing the constants in the same enum.
 
 To read more about parsing PHP constants or enums from YAML, see the [Symfony YAML component documentation page](https://symfony.com/doc/current/components/yaml.html#parsing-php-enumerations).
 

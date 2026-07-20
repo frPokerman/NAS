@@ -1,5 +1,6 @@
 search:
-    # If a search bar is displayed in the file explorer
+    # @name Display search bar
+    # @desc If a search bar is displayed in the file explorer.
     search-bar: true
-    # If the search bar can search in files' content
+    # @desc If the search bar can search in files content.
     content-search: true

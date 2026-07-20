@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Data\Configuration;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+// use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,11 +25,18 @@ class YAMLParser
     {
         foreach ($mapping as $key => $value)
         {
-            $pos = strpos($text, $key.':') - 1;
+            // Find key in file
+            $pos = strpos($text, $key.':');
+            if ($pos > 0) $pos -= 1;
+
+            // Extract comment headers above the key
             $head = substr($text, 0, $pos);
             $meta = explode("\n", $head);
 
-            $text = substr($text, strpos($text, "\n", $pos + 1) + 1);
+            // Set the text to start after the colon following the key
+            // This allows parsing inline mapping (e.g. plugins.test:complex-object.data)
+            //     but because documentation must be defined in inline comments, inline mapping can not be documented.
+            $text = substr($text, strpos($text, ':', $pos + 1) + 1);
 
             if (is_array($value))
             {

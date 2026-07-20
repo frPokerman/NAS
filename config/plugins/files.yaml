@@ -1,14 +1,15 @@
 permissions:
-    # If files can only be downloaded / streamed
+    # @desc If files can only be downloaded or streamed.
     read-only: false
-    # If files can only be added, not downloaded / streamed
+    # @desc If files can only be added, not downloaded or streamed.
     write-only: false
 
-# If files tagged as hidden can be displayed
-display-hidden-files: true
+# @name Display hidden files
+# @desc If files tagged as hidden can be displayed.
+hidden-files: true
 
 confidentiality:
-    # If each file is stored on the server as one or split among several binary files
+    # @desc If each file is stored on the server as one or split among several binary files.
     split-chunks: false
-    # If file access can be logged and used for analytics
+    # @desc If file access can be logged and used for analytics.
     access-analytics: false

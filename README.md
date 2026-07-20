@@ -16,16 +16,23 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.11 \
-    Date: 2026-07-19
+>   Version number: 26.1.12 \
+    Date: 2026-07-20
 
-Implement the `Configuration` data type to store all meta data associated with configurations such as documentation.
+### 📝 Release notes
 
-To read more about this documentation syntax, read the [syntax reference for documenting configuration](doc/reference/yaml-syntax-for-plugin-configuration.md#configuration-documentation).
+Patch a few issues with the documentation of configuration files:
 
-Currently, the Settings interface displays the configurations in their respective HTML inputs. Modifying is yet not implemented.
+* Indented documentation is now recognized;
+* The Settings interface now displays description and references for configuration groups;
+* Properties named "name" will not overwrite their parent's display name and cause error anymore;
+* Inline YAML mappings are now correctly parsed (but don't do that).
 
-Many configuration files were modified to demonstrate the latter changes.
+In addition, references in documentation (external links specified with the `@docs` token) can specify a custom text to display (CTA).
+
+To read more about the documentation syntax, read the [syntax reference for documenting configuration](doc/reference/yaml-syntax-for-plugin-configuration.md#configuration-documentation).
+
+Some configuration files were modified too.
 
 ### 📅 Planned releases
 

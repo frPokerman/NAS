@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use App\Exception\BaseException as Exception;
+use ErrorException;
 use JsonSerializable;
 use Psr\Container\ContainerInterface;
 use UnitEnum;
@@ -12,6 +13,7 @@ class Configuration implements JsonSerializable
     const string YAML_COMMENT = '#';
     const string ESCAPE_NEW_LINE = '\\';
     const string LIST_SEPARATOR = ',';
+    const string METHOD_SEPARATOR = '::';
     const string PARAM_TOKEN = '@';
 
     const string PARAM_NAME             = 'name';
@@ -25,6 +27,7 @@ class Configuration implements JsonSerializable
     protected string $name = '';
     protected string $description = '';
     protected string $documentation = '';
+    protected string $doc_text = '';
     // If not empty, $value MUST match one of its value (not a key!)
     protected array $possible_values = array();
     protected array $comments = array();
@@ -41,6 +44,7 @@ class Configuration implements JsonSerializable
         $waiting_new_line = false;
         foreach ($meta as $line)
         {
+            $line = trim($line);
             if (!str_starts_with($line, self::YAML_COMMENT)) continue;
 
             $line = trim(substr($line, 1));
@@ -77,7 +81,11 @@ class Configuration implements JsonSerializable
                     if (str_ends_with($line, self::ESCAPE_NEW_LINE)) $waiting_new_line = true;
                     break;
                 case self::PARAM_DOCUMENTATION:
-                    $this->documentation = $content;
+                    [ $url, $text ] = explode(' ', $content, 2) + array('', '');
+
+                    $this->documentation = $url;
+                    $this->doc_text = $text;
+
                     $waiting_new_line = false;
                     break;
                 case self::PARAM_LIST:
@@ -92,7 +100,19 @@ class Configuration implements JsonSerializable
                     $waiting_new_line = false;
                     break;
                 case self::PARAM_GET_LIST_FROM:
-                    [ $service_id, $method ] = explode('::', $content, 2);
+                    try
+                    {
+                        [ $service_id, $method ] = explode(self::METHOD_SEPARATOR, $content, 2);
+                    }
+                    catch (ErrorException $th)
+                    {
+                        // If you are trying to refer to an enum, please use the !php/enum operator.
+                        //     A whole walkthrough is available in the documentation.
+                        throw new Exception(
+                            'No method specified or wrong separator in the documentation token @from for configuration "'.$this->key.'".'
+                        );
+                    }
+
                     // TODO: check if $s exists
                     $s = $service_provider->get($service_id);
                     $list = $s->{$method}();
@@ -226,6 +246,15 @@ class Configuration implements JsonSerializable
     public function hasdocumentation(): bool
     {
         return $this->documentation != '';
+    }
+
+    public function getdoc_text(): string
+    {
+        return $this->doc_text;
+    }
+    public function hasdoc_text(): bool
+    {
+        return $this->doc_text != '';
     }
 
     public function getpossible_values(): array

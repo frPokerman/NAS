@@ -9,26 +9,12 @@ input {
     font-size: var(--default-size);
 }
 
+:any-link {
+    text-decoration: none;
+}
+
 *:focus-visible {
     outline: none;
-}
-
-.small {
-    font-size: var(--label-size);
-}
-.compact, .compact * {
-    font-size: var(--compact-size);
-}
-.big {
-    font-size: var(--default-size);
-}
-
-.medium {
-    font-weight: 600;
-}
-
-.italic {
-    font-style: italic;
 }
 
 *::-webkit-scrollbar {
