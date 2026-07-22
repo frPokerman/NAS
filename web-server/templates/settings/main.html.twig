@@ -3,6 +3,9 @@
 
 {% block page_title %}Settings{% endblock %}
 
+{% set plugin_list = list_plugin_configs() %}
+{% set target_plugin = app.request.query.get('p', plugin_list[0]) %}
+
 {% macro config_header(config, use_margin = true) %}
     {% set desc = config.hasdescription() %}
     {% set docs = config.hasdocumentation() %}
@@ -26,20 +29,20 @@
     {% endif %}
 {% endmacro %}
 
-{% macro config_group(array) %}
+{% macro config_group(array, parent, is_parent_file = true) %}
     {% for key, item in array %}
         {% if item is config and not item.value is mapping %}
             <fieldset class="no-border compact no-padding">
                 <div class="horizontal-flex between">
                     <h3 id="{{ key }}" class="no-margin big medium">{{ item.name }}</h3>
                     {% if item.possible_values|length > 0 %}
-                        <select name="{{ key }}">
+                        <select name="{{ parent ~ (is_parent_file ? ':' : '.') ~ key }}">
                             {% for name, option in item.possible_values %}
                                 <option value="{{ name }}"{% if option == item.value %} selected{% endif %}>{{ option }}</option>
                             {% endfor %}
                         </select>
                     {% else %}
-                        <input  name="{{ key }}"
+                        <input  name="{{ parent ~ (is_parent_file ? ':' : '.') ~ key }}"
                                 type="{{ to_input_type(item.type) }}"
                                 {% if item.type == 'boolean' %}{% if item.value %}checked{% endif %}{%
                                 else %}value="{{ item.value }}"{% endif %}
@@ -53,18 +56,15 @@
                 {% if item is config %}
                     <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{ item.name|upper }}</h2>
                     {{ _self.config_header(item, false) }}
-                    {{ _self.config_group(item.value) }}
+                    {{ _self.config_group(item.value, parent ~ (is_parent_file ? ':' : '.') ~ key, false) }}
                 {% else %}
                     <h2 id="{{ key }}" class="section-title x-offset-20 no-margin">{{ key|replace({ '-': ' ' })|upper }}</h2>
-                    {{ _self.config_group(item) }}
+                    {{ _self.config_group(item, parent ~ '.' ~ key) }}
                 {% endif %}
             </div>
         {% endif %}
     {% endfor %}
 {% endmacro %}
-
-{% set plugin_list = list_plugin_configs() %}
-{% set target_plugin = app.request.query.get('p', plugin_list[0]) %}
 
 {% block left_panel %}
     <div class="vertical-flex align-center width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
@@ -80,6 +80,9 @@
 
 {% block window_content %}
     <div class="vertical-flex-16 fill auto-scroll max-width-600 inline-padding-12">
-        {{ _self.config_group(plugin_config(target_plugin)) }}
+        {{ _self.config_group(plugin_config(target_plugin), target_plugin) }}
     </div>
+
+    {# <button id="debug-button" style="position: fixed;">Submit</button>
+    <script src="/scripts/plugins/settings.js"></script> #}
 {% endblock %}

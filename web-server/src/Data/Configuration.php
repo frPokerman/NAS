@@ -32,8 +32,6 @@ class Configuration implements JsonSerializable
     protected array $possible_values = array();
     protected array $comments = array();
 
-    private ContainerInterface $container;
-
     public function __construct(
         protected mixed $key,
         protected mixed $value,
@@ -156,11 +154,6 @@ class Configuration implements JsonSerializable
                 'Configuration "'.$this->key.'" of type "'.$this->type.'" can not be parsed or contains syntax errors.'
             );
         }
-    }
-
-    protected function autowire(ContainerInterface $container): void
-    {
-        $this->container = $container;
     }
 
     protected function verify(mixed &$value): bool

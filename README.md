@@ -109,19 +109,13 @@ As it stands, a plugin can be defined in 3 independent and optional ways:
 
 ### 1. The controller
 
-Every PHP file in the directory `web-server/src/Plugin/` will be considered as a plugin by the `PluginList` service (namespace `App\Service\FileList`) and returned by the `PluginList::get_config_list` method and the `/api/plugins/list` endpoint.
+This is the functional aspect of your plugin. It is recommended to make your class inherit from the `BasePlugin` class (namespace `App\Plugin`) and having a `Plugin` attribute (namespace `App\Attribute`) that defines its **plugin id**.
 
-Currently, the endpoint is completely unused and the `PluginList::get_config_list` method is only used by the endpoint.
-
-> **Imminent change:** The plugins returned by this method correspond to the lowercase filenames without the extension and might differ from the actual plugin ids, *e.g.* the Interface plugin's controller is named "WebInterface" but its id is "interface".
+By doing so, the plugin can access the shorthand method `$this->config` to read or write a plugin setting. See the [walkthrough about configuring a plugin](doc/guides/configure-a-plugin.md) for more details. In addition, your plugin will inherits from the [Symfony AbstractController class](https://symfony.com/doc/current/controller.html), giving it access to several HTTP-related methods.
 
 Plugins can (and should) be used as [Symfony services](https://symfony.com/doc/current/service_container.html) so that you don't need to construct them yourself, instead the framework autowires them whenever you define them in a function's parameters.
 
 Additionally, you can use a [`Route` attribute](https://symfony.com/doc/current/routing.html#creating-routes-as-attributes) on a plugin function to automatically call this function whenever the user tries to reach the specified endpoint.
-
-The plugins that inherit from the `BasePlugin` class (namespace `App\Plugin`) can access the `BasePlugin::config` shorthand to read or write a plugin setting. See the [walkthrough about configuring a plugin](doc/guides/configure-a-plugin.md) for more details.
-
-> Note that to inherit from `BasePlugin`, a plugin **must pass the `ConfigList` service** to the constructor, even if this plugin doesn't access any configuration file.
 
 ### 2. The interface
 
@@ -129,15 +123,15 @@ Every folder in the directory `web-server/templates/` that contains a file named
 
 Such template can be accessed at `/<folder name>`.
 
-> Note that it is recommended to name the folder like the plugin id else the template could become unavailable in a future release.
+> Note that it is recommended to name the folder according to the plugin id else the template could become unavailable in a future release.
 
 ### 3. The configuration
 
 *You may want to read the [walkthrough about configuring a plugin](doc/guides/configure-a-plugin.md).*
 
-Every YAML file or subfolder in the directory `config/plugins/` will be considered as a plugin by the `ConfigList` service (namespace `App\Service\FileList`). Both a YAML file and a subfolder can exist with the same name simultaneously.
+Every YAML file or subfolder in the directory `config/plugins/` will be considered as a plugin configuration by the Settings plugin. Both a YAML file and a subfolder can exist with the same name simultaneously.
 
-Even if the `BasePlugin::config` shorthand only gives access to the configuration file or subfolder matching the calling plugin id, any plugin or any controller can call the `ConfigList::get` method and access any configuration file or subfolder, so there is no restriction for a plugin to have its configuration at a specific location, as long as it is located within the root-level `config/` directory.
+Even if the `BasePlugin::config` shorthand only gives access to the configuration file or subfolder matching the calling plugin id, any plugin or any controller can call the `get` method of the Settings plugin and access any configuration file or subfolder, so there is no restriction for a plugin to have its configuration at a specific location, as long as it is located within the root-level `config/` directory.
 
 ## 🤝 Contributing
 

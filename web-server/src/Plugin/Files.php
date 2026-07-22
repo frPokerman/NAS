@@ -2,12 +2,11 @@
 
 namespace App\Plugins;
 
+use App\Attribute\Plugin;
 use App\Plugin\BasePlugin;
 
+#[Plugin('files')]
 class Files extends BasePlugin
 {
-    public function __construct()
-    {
-        parent::__construct('files');
-    }
+    
 }

@@ -2,6 +2,7 @@
 
 namespace App\Plugin;
 
+use App\Attribute\Plugin;
 use App\Exception\ResourceNotFound;
 use App\Plugin\BasePlugin;
 use App\Service\FileList\ConfigList;
@@ -9,13 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Twig\Error\LoaderError;
 
+#[Plugin('interface')]
 class WebInterface extends BasePlugin
 {
-    public function __construct(ConfigList $config)
-    {
-        parent::__construct('interface', $config);
-    }
-    
     #[Route('/{plugin_id}', condition: "service('interface_route_validator').validate(params['plugin_id'])")]
     public function get_main(string $plugin_id): Response
     {

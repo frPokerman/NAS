@@ -20,7 +20,6 @@ class InterfaceList extends BaseList
     
     protected function match(string $filename, string ...$parent): bool
     {
-        // TODO: Also compare with the first parent with the (API) plugin list
         return $filename == self::MAIN_FILENAME && count($parent) > 0;
     }
 

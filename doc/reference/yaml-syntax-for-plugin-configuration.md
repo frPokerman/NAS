@@ -14,9 +14,7 @@ The YAML parser used to read a plugin configuration walk through 3 layers of rul
 
 The Settings plugin read YAML configuration files to define the behaviors of a specific plugin or the whole server. To learn more about the configuration files' location, read the [walkthrough about configuring a plugin](../guides/configure-a-plugin.md).
 
-A configuration is a key associated with a value. In the YAML context, every property whose value is not a mapping become a configuration. During runtime, plugins can submit queries to the `ConfigList` service to read or write the value of a configuration based on its key.
-
-> Imminent change: The service responsible for accessing and modifying the configuration files could become the Settings plugin in the near future.
+A configuration is a key associated with a value. In the YAML context, every property whose value is not a mapping become a configuration. During runtime, plugins can submit queries to the Settings plugin to read or write the value of a configuration based on its key.
 
 The Settings service provides an interface (@ `/settings[?p=<plugin id>]`) to simplify the access to these configurations using a browser. To further improve accessibility and understanding of what each configuration do, it is recommended to **document** your configuration files.
 

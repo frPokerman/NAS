@@ -1,5 +1,5 @@
 # @desc This value should not overwrite its parent name (abc).
-# @docs https://github.com/frPokerman/NAS/commits Read the 26.1.12 release notes for more details.
+# @docs https://github.com/frPokerman/NAS/tree/2a67749c48e09a0a5d828dba4b4e9ba55131e38d#-release-notes Read the 26.1.12 release notes for more details.
 name: "Not the parent's name"
 
 # @type time
