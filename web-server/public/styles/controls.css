@@ -1,9 +1,48 @@
+svg * {
+    fill: inherit;
+}
+
+.clickable,
+.thumb,
+.tab {
+    cursor: pointer;
+}
+
+.label,
+.thumb,
+.tab {
+    background-color: var(--widget);
+}
+
+.label {
+    font-size: var(--label-size);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.thumb,
+.tab {
+    font-size: var(--compact-size);
+    padding: 8px 12px;
+}
+
+.thumb {
+    border-radius: 8px;
+}
+
+.widget {
+    background-color: var(--widget);
+    box-shadow: 2px 4px 4px 2px var(--shadow);
+}
+
 .small {
     font-size: var(--label-size);
 }
+
 .compact, .compact * {
     font-size: var(--compact-size);
 }
+
 .big {
     font-size: var(--default-size);
 }
@@ -20,33 +59,31 @@
     color: var(--text-action);
 }
 
-.label,
-.thumb,
-.tab {
-    background-color: var(--widget);
-    cursor: pointer;
-}
-.label {
-    font-size: var(--label-size);
-    padding: 2px 4px;
-    border-radius: 4px;
-}
-.thumb,
-.tab {
-    font-size: var(--compact-size);
-    padding: 8px 12px;
-}
-.thumb {
-    border-radius: 8px;
+.emphasis {
+    color: var(--emphasis);
 }
 
-.widget {
-    background-color: var(--widget);
-    box-shadow: 2px 4px 4px 2px var(--shadow);
-}
 .tint {
     background-color: var(--tint);
 }
+
+.legend {
+    color: var(--legend);
+}
+
+.contrast {
+    background-color: var(--contrast);
+    color: var(--emphasis);
+}
+
+.btn {
+    background-color: var(--action);
+    color: var(--emphasis);
+}
+.svg-btn {
+    fill: var(--action);
+}
+
 .transparent {
     background-color: transparent;
 }
@@ -59,7 +96,7 @@ input.transparent {
     --inline-margin: 50px;
 
     width: calc(100% - 2 * var(--inline-margin));
-    height: calc(100% - 2 * var(--block-margin));
+    max-height: calc(100vh - 2 * var(--block-margin));
 
     margin: var(--block-margin) var(--inline-margin);
 }
@@ -87,6 +124,15 @@ input.transparent {
     padding: 0.2em;
     font-size: 1em;
     line-height: 1;
+}
+
+.text-middle {
+    align-content: center;
+}
+
+.no-select {
+    user-select: none;
+    cursor: default;
 }
 
 [component="check_box"] {
@@ -129,4 +175,28 @@ input.transparent {
     background-color: var(--contrast-fore);
     left: 100%;
     transform: translateX(-100%);
+}
+
+[component="progress"] {
+    height: 1em;
+}
+[component="progress"] span {
+    position: absolute;
+    background-color: var(--active);
+    width: 0%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+[component="upload"] {
+    width: 100px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+[component="upload"] svg {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
 }

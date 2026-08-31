@@ -1,48 +1,48 @@
 {% extends "generic/window.html.twig" %}
-{% use "search/bar.html.twig" %}
 
 {% block page_title %}Files{% endblock %}
 
 {% block left_panel %}
-<div class="horizontal-wrap width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Backups</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Cats</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Films</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Gaming</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Maps</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Music</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Notes</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Screenshots</span>
-    {% for i in range(0, random(10, 20)) %}
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Foo</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">BarBaz</span>
-    {% endfor %}
-</div>
-<div class="horizontal-wrap fill-width bottom-panel-fade tint padding-24 gap-4 top-padding-8">
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Popular</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recent</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recommended</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">New</span>
-    <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Old</span>
-</div>
+    <div class="horizontal-wrap width-240 inline-padding-24 bottom-padding-24 gap-4 auto-scroll">
+        {% for category in [
+            'Backups', 'Cats', 'Films', 'Gaming', 'Maps', 'Music', 'Notes', 'Screenshots'
+        ] %}
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">{{ category }}</span>
+        {% endfor %}
+        {% for i in range(0, random(10, 20)) %}
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Foo</span>
+            <span class="thumb tint-on-hover outline-on-focus" tabindex="0">BarBaz</span>
+        {% endfor %}
+    </div>
+    <div class="horizontal-wrap fill-width bottom-panel-fade tint padding-24 gap-4 top-padding-8">
+        <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Popular</span>
+        <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recent</span>
+        <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Recommended</span>
+        <span class="thumb tint-on-hover outline-on-focus" tabindex="0">New</span>
+        <span class="thumb tint-on-hover outline-on-focus" tabindex="0">Old</span>
+    </div>
 {% endblock %}
 
 {% block window_content %}
-<table class="fill-width compact border-collapse">
-{% for i in range(0, random(15, 30)) %}
-    <tr tabindex="0" class="tint-on-hover bookmark-on-focus">
-        <td class="padding-12 left-padding-24"><span component="check_box"></span></td>
-        <td class="padding-12">IMG{{ "now"|date("Ymd") }}{{ i + 1 }}.jpeg</td>
-        <td class="padding-12">Image</td>
-        <td class="padding-12">{{ "now"|date("Y/m/d") }}</td>
-        <td class="padding-12">Never</td>
-        <td class="padding-12">N/A</td>
-        <td class="padding-12">No information</td>
-        <td class="padding-12 right-padding-24 to-right">
-            <span class="label">Foo</span>
-            <span>+1</span>
-        </td>
-    </tr>
-{% endfor %}
-</table>
+    <table class="fill-width compact border-collapse">
+        {% for i in range(0, random(15, 30)) %}
+            <tr tabindex="0" class="tint-on-hover bookmark-on-focus">
+                <td class="padding-12 left-padding-24"><span component="check_box"></span></td>
+                <td class="padding-12">IMG{{ "now"|date("Ymd") }}{{ i + 1 }}.jpeg</td>
+                <td class="padding-12">Image</td>
+                <td class="padding-12">{{ "now"|date("Y/m/d") }}</td>
+                <td class="padding-12">Never</td>
+                <td class="padding-12">N/A</td>
+                <td class="padding-12">No information</td>
+                <td class="padding-12 right-padding-24 to-right">
+                    <span class="label">Foo</span>
+                    <span>+1</span>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script src="{{ asset('scripts/sse.js') }}" type="module"></script>
+    <script src="{{ asset('scripts/plugins/files/main.js') }}"></script>
+    <script src="{{ asset('scripts/plugins/files/explorer.js') }}"></script>
 {% endblock %}

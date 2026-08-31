@@ -42,6 +42,7 @@ Some configuration files were modified too.
 | 26.3.0  | The Files (cloud) plugin    |
 | 26.4.0  | Tests                       |
 | 26.5.0  | Changelogs                  |
+| 26.6.0  | The Search plugin           |
 | 26.10.0 | Full documentation          |
 
 ___

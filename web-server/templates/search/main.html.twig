@@ -1,7 +1,8 @@
 {% extends "generic/base.html.twig" %}
-{% use "search/bar.html.twig" %}
 
 {% block page_title %}Search{% endblock %}
+
 {% block page_content %}
-{% block search_bar %}{{ parent() }}{% endblock %}
+    {% embed "search/bar.html.twig" %}{% endembed %}
+    {% embed "search/results.html.twig" %}{% endembed %}
 {% endblock %}

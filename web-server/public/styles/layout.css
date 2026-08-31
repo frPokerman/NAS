@@ -10,6 +10,11 @@ body {
     height: 100vh;
 }
 
+.sticky {
+    position: sticky;
+    top: 0px;
+}
+
 [class*=-flex] {
     display: flex;
 }
@@ -32,6 +37,9 @@ body {
 [class*=-flex].align-center {
     align-items: center;
 }
+.stretch {
+    align-items: stretch;
+}
 
 [class*=-flex].center {
     justify-content: center;
@@ -39,8 +47,29 @@ body {
 :not([class*=-flex]).center > * {
     margin-inline: auto;
 }
+
 [class*=-flex].between {
     justify-content: space-between;
+}
+
+[class*=-flex].even {
+    justify-content: space-evenly;
+}
+
+.fit-flex {
+    flex: 1;
+}
+
+.no-shrink {
+    flex-shrink: 0;
+}
+
+.self-center {
+    align-self: center;
+}
+
+.content-center {
+    align-content: center;
 }
 
 .to-left {
@@ -62,12 +91,28 @@ body {
     height: 100%;
 }
 
+.half-screen-height {
+    height: 50vh;
+}
+
+.width-p20 {
+    width: 20%;
+}
+
 .width-240 {
     width: 240px;
 }
 
 .max-width-600 {
     max-width: 600px;
+}
+
+.min-fill-height {
+    min-height: 100%;
+}
+
+.max-height-s90 {
+    max-height: 90vh;
 }
 
 .no-margin {
@@ -79,12 +124,29 @@ body {
 .bottom-margin-8 {
     margin-bottom: 8px;
 }
+.block-margin-12 {
+    margin-block: 12px;
+}
 
 .no-padding {
     padding: 0px;
 }
+.block-padding-4,
+.padding-4 {
+    padding-block: 4px;
+}
+.inline-padding-4,
+.padding-4 {
+    padding-inline: 4px;
+}
+.top-padding-8 {
+    padding-top: 8px;
+}
 .block-padding-8 {
     padding-block: 8px;
+}
+.padding-8 {
+    padding: 8px;
 }
 .padding-12 {
     padding: 12px;
@@ -115,9 +177,6 @@ body {
 .padding-24 {
     padding-bottom: 24px;
 }
-.top-padding-8 {
-    padding-top: 8px;
-}
 .block-padding-small {
     padding-block: 0.4em;
 }
@@ -126,10 +185,13 @@ body {
     gap: 4px;
 }
 .gap-8, [class*=-flex-8] {
-    gap: 4px;
+    gap: 8px;
 }
 .gap-16, [class*=-flex-16] {
     gap: 16px;
+}
+.gap-32, [class*=-flex-32] {
+    gap: 32px;
 }
 
 .x-offset-20 {
@@ -142,4 +204,16 @@ body {
 
 .auto-scroll {
     overflow: auto;
+}
+
+.none {
+    display: none;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.no-wrap {
+    white-space: nowrap;
 }

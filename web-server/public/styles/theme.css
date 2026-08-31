@@ -27,6 +27,10 @@
     color: var(--text);
 }
 
+pre, code {
+    font-family: monospace;
+}
+
 body {
     background-image: var(--background-full);
     background-size: 100vw 100vh;

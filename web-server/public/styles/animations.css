@@ -43,3 +43,10 @@
 .outline-on-focus:focus-within::after {
     box-shadow: inset 0px 0px 0px 2px var(--active);
 }
+
+.pop-on-active {
+    transform: scale(0);
+}
+.pop-on-active.active {
+    transform: scale(1);
+}
