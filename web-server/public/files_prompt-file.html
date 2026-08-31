@@ -1,0 +1,36 @@
+<!-- File being served at GET /files/upload -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File prompt</title>
+</head>
+<body>
+    <form action="/files/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file0" required multiple>
+    </form>
+    <script>
+        document.querySelector('input').onchange = ({ target: input }) =>
+        {
+            if (input.files.length == 0) return;
+    
+            let form = new FormData();
+            form.append('count', input.files.length);
+
+            for (let i = 0; i < input.files.length; i++)
+            {
+                form.append('file' + i, input.files[i]);
+            }
+
+            fetch('/files/upload', {
+                method: 'POST',
+                redirect: 'manual',
+                body: form
+            }).then((res) => res.json()).then(({ success, redirect }) =>
+            {
+                if (success && redirect) window.location.href = redirect;
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "generic/base.html.twig" %}
+
+{% block page_title %}Files (Upload){% endblock %}
+
+{% block page_content %}
+    <link href="{{ asset('styles/plugins/files.css') }}" rel="stylesheet">
+
+    <section>
+        <h2 class="to-center legend">Upload files</h2>
+        <div component="upload" class="widget">
+            <svg class="svg-btn clickable" viewBox="0 0 100 100">
+                <path d="M 58.75 90 C 58.75 92.071 57.071 93.75 55 93.75 L 45 93.75 C 42.929 93.75 41.25 92.071 41.25 90 L 41.25 43.75 H 20 C 18.4835 43.75 17.116 42.8365 16.5355 41.435 C 15.955 40.034 16.276 38.421 17.3485 37.3485 L 47.3485 7.3485 C 48.0515 6.645 49.0055 6.25 50 6.25 C 50.9945 6.25 51.9485 6.645 52.652 7.3485 L 82.652 37.3485 C 83.7245 38.421 84.045 40.034 83.4645 41.435 C 82.884 42.8365 81.517 43.75 80 43.75 H 58.75 L 58.75 90 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="status" class="vertical-flex fill-height center align-center half-screen-height">
+        <h2>Upload status</h2>
+        <div id="progress" class="widget fill-width no-shrink">
+            <span></span>
+        </div>
+
+        <pre id="output" class="fill-width auto-scroll"></pre>
+    </section>
+
+    <script src="{{ asset('scripts/sse.js') }}" type="module"></script>
+    <script src="{{ asset('scripts/plugins/files/main.js') }}"></script>
+    <script src="{{ asset('scripts/plugins/files/upload.js') }}"></script>
+{% endblock %}

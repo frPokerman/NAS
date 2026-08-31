@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre></pre>
+    <script>
+const output = document.querySelector('pre');
+
+function toHumanReadableSize(size)
+{
+    let exp = Math.floor(Math.log(size) / Math.log(1024));
+    let div = 1024 ** exp;
+    let coeff = Math.floor(size / div);
+    let decimals = size - coeff * div;
+
+    return coeff + (decimals > 0 ? '.' + decimals : '') + ' ' + [ 'o', 'ko', 'Mo', 'Go' ][exp];
+}
+
+(async function()
+{
+    const file_location = 'https://lorem-api.com/api/lorem?paragraphs=1024';
+    const chunks_size = 50 * 1024;
+
+    let data = await fetch(file_location).then((res) => res.text());
+
+    let file = new Blob([ data ], { type: 'application/octet-stream' });
+
+    output.innerHTML += 'File size: ' + toHumanReadableSize(file.size) + ' (' + file.size + ' o)\n';
+
+    let parts = Math.ceil(file.size / chunks_size);
+    let { upload_id } = await fetch('/test/chunk/init').then((res) => res.json());
+
+    for (let i = 0; i < parts; i++)
+    {
+        let chunk = file.slice(
+            chunks_size * i,
+            Math.min(chunks_size * (i + 1), file.size),
+            'application/octet-stream'
+        );
+
+        output.innerHTML += 'Chunk ' + (i + 1) + '/' + parts + ': slice('
+                + (chunks_size * i) + ', '
+                + (Math.min(chunks_size * (i + 1), file.size))
+            + ')\n';
+
+        // output.innerHTML += "\n" (await chunk.text()) + "\n\n";
+    }
+})();
+    </script>
+</body>
+</html>

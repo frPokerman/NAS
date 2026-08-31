@@ -1,3 +1,7 @@
+# @name Home directory
+# @desc Path to the physical root directory to use for file storage.
+home: 'D:\'
+
 permissions:
     # @desc If files can only be downloaded or streamed.
     read-only: false
