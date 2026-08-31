@@ -117,7 +117,7 @@ class Settings
         try
         {
             $result = $this->map->develop_path(...array_merge($this->prefix($path[0]), $path[1]));
-            return is_array($result) ? $this->unprefix($result) : $result;
+            return is_array($result) ? $this->unprefix($result) : $result->getvalue();
         }
         catch (BaseException $e)
         {

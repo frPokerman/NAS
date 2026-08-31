@@ -16,7 +16,7 @@ The cost? I don't know the minimum configuration yet, but it should be able to r
 
 ## 🎯 Latest version
 
->   Version number: 26.1.12 \
+>   Version number: 26.1.13 \
     Date: 2026-07-20
 
 ### 📝 Release notes
